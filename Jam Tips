@@ -1,0 +1,79 @@
+This is a list I created of recommended game jam/ rapid prototyping practices compiled into one location. Most of this was just reading through articles and copy-pasting anything that was important or relevant, so I apologize for anything that is repeated throughout the paper.
+
+http://en.wikipedia.org/wiki/Pomodoro_Technique
+Rule #1: Treat Yourself Well
+The single most important piece of advice is to treat yourself well. Stay hydrated, remember to eat and bathe, and take a break from time to time. Don't try to pull all-nighters: solutions to problems will often come to you when resting. When you're tired, hungry and frustrated, your productivity will slow to a crawl. A little sunshine and some time with your family and friends is a good thing.
+Learn From the Mistakes of Others
+A "post mortem", in game development circles, is a written report of what went right and wrong during the course of a project. In order to glean advice from the past mistakes of your fellow game jammers, a statistical analysis of game jam post-mortem blog posts was performed to collect the most common complaints by participants.
+Getting stumped by a tricky theme is half the fun. Remember: limitations encourage creativity!
+People who take part in many game jams do so more for bragging rights, the pride in completing a game, or in the pleasure of honing their craft and seeking inspiration in one crazy weekend of late nights and rapid prototyping
+Breaks
+Take them. Go walk around outside for 10 minutes. Take deep breaths. Do something not related to video games for 20 minutes. Call your mother. Go on a food run. Watch cat videos on your phone. Game Jam is a totally intense and rewarding experience. Emphasis on intense. You are going to be in a confined space with a bunch of other people, and all of you will be short on sleep, energy, and privacy. There’s no shame if you have to unplug your brain for a few minutes so you don’t go on a rampage.
+Food
+Eat it. Game Jam is the kind of intense experience where it’s easy to put your head down and keep working and then surface for air and realize you haven’t eaten for 12 hours. Game Jam will often feed you some meals, but you should also bring some supplies of your own. Protein bars, fruit, beef jerky, trail mix, and peanut butter are good for protein, and you’ll want some of that. Sugar crashes are no fun, and less so during Game Jam.
+Fluids
+Drink them. Coffee, tea and energy drinks will give you a quick hit of energy, and that’s useful, but be sure to drink some actual water to stay hydrated. Also think about packing actual fruit juice and vitamin water. Soda does not count.
+Sleeping
+Do it. Four hours at the minimum. Six is better. Or at least try to take 20-minute power naps every few hours.
+Bathing
+Do it. Put soap on a washcloth, get it wet, and rub it all over your body. Brush your teeth, put on deodorant, change your clothing a few times over the course of the weekend. You’ll feel better, and your teammates will thank you.
+Packing Suggestions:
+- Laptop, netbook, tablet, or some kind of portable computer with WI-FI enabled
+- Power cord and/or extra batteries
+- Paper and pencil to write and draw with
+- Other art supplies
+- Musical instrument
+- bottled water
+- snacks
+- caffeine (Protip: individual instant packs of coffee are amazing)
+http://gamedevelopment.tutsplus.com/articles/how-to-get-the-most-out-of-a-game-jam--gamedev-437
+Stuck? Have a shower! The solution may come to you once you relax.
+Buggy game? Find something fun about it and call it a feature!
+Only one level? Call it a “battle arena!”
+Broken weapons? Make the game an “avoider” with no guns!
+Sound broken? Your main character is deaf – or in space!
+Not fun yet? Make it a “joke game” meant to annoy players!
+Ugly art? Call it retro / hipster / ironic!
+Poor framerate? Make it a turn based strategy!
+No story or characters? This is an arcade title!
+No gameplay / all story? This is a visual novel!
+No “game over” or way to die? "Can you survive for 60 seconds?"
+Code won't compile? Comment out parts until it does!
+Too tired to finish? Call it done right now and submit anyway!
+It works but it sucks? Take pride in the fact that you finished! Most of the other participants won't!
+Don't beat yourself up! Don't let your pride stop you from submitting whatever you were able to accomplish.
+Source repository system like git, mercurial, subversion and make sure you know how to use it
+Cloud account like Dropbox to be able to exchange assets
+USB (best > 1GB) stick, if everything else fails
+Basic software already installed: Editor/IDE, Gimp/Photoshop, Audacity, Blender
+Google account and google drive installed help with docs, LibreOffice
+Enough space on your hard disk
+Register as a participant
+Paper and pen for notes, design, scribbling
+Headphones
+Mouse
+Food, there is a restaurant and a gas station at the premise and there will be some food, but don’t forget your special boosters 
+If you want to be there the whole time: sleeping bag, mat, pillow, toothbrush, brush etc.
+Camera, Microphone
+Graphic tablet, if you want to do art
+MIDI keyboard, if you want to do sound
+Charger, memory cards and connection cables/software for laptop, phone, camera, mic, tablet, keyboard
+Don't forget the sound!
+Sound and music is often overlooked in jam games, but it is an integral component and greatly affects the perception of quality.
+First code the entire game using no art at all: just rectangles and circles. Once the gameplay feels fun, make it pretty.
+Concentrate on the important parts of your game: movement, controls, a way to "die", triggering a "win" state, the "feel".
+Avoid the latest fad: go low-tech. Great games can be made with pixelated retro graphics that only use four colors.
+Stay motivated! Keep it simple. Don't give up. Don't do too many things at the same time: lay down one feature at a time.
+See that light at the end of the tunnel? It's not a train. To finish on time, DIRTY HACKS are okay!
+
+2D games take 25% the hours of coding of equivalent 3D games; 2D art takes 25% the hours of design of 3D art.
+When in doubt: No physics engine. No multiplayer. Square grid (as opposed to hexagons). K.I.S.S.
+Players hate installers: make your game standalone, portable, with no missing DLLs or frameworks! Make it easy to run.
+Finish a “working” basic prototype early. At the end of your project there are going to be unexpected problems.
+Occam's Razor: Aim for a smaller game that you hope to make. If you have extra time at the end you can add more features.
+Break the rules of computer science! It is perfectly okay to not use OOP.
+Save time: instead of hand-crafted levels, use procedural generation (fractals, random, etc.)
+What's obvious to you isn't to your players: get friends to playtest. Did they "get it" immediately?
+Don't let a bug be a roadblock: move on; comment out buggy code instead of fixing. Improve the features that work instead.
+Embrace your inner hacker. Cut out any weak parts. Drop features. Do one thing well and trim the fat.
+http://www.gamasutra.com/view/feature/6348/postmortem_team_meats_super_meat_.php
