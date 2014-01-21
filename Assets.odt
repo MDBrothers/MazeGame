@@ -1,0 +1,89 @@
+Spectrum Asset List
+
+This list is meant to provide an over-view of all assets currently in use for the Spectrum project.  I will provide an asset 
+name followed by a brief description.  Greater detail on what the objects do, and how they are doing it in my prototype will 
+follow in what I am calling our 'class diagram', though it will probably just be a word file like this one.
+Without further ado, in no particular order:
+
+1.  Roller (player character) – The player character. 
+Moves in 4 directions
+Bounces off of grey walls and barriers of different colors.
+Passes through barriers of the same color.
+Can change color and size
+Can teleport up and down to different 'floors' of the maze in later levels.
+Does or does not have a key for a lock.
+
+2.  Triangle (Color change pyramid) – changes the color of the player.
+exists in one of 4 of the game's colors: red, yellow, green, blue.
+swaps colors with the player, so that the player can always reclaim his old color.
+This fact is absolutely crucial to the player not putting themselves in an unwinnable situation.
+Does not move.
+
+3.  Color Change Button – Cycles through the barriers' color progression which is as follows, (the order is important to level 
+design thus far).
+Barrier state 1 = blue
+barrier state 2 = red
+barrier state 3 = yellow
+barrier state 4 = green
+Does not move.
+Cycling through colors should be done via a button press.
+
+4.  Color barriers – you understand what these do and how they work.
+They could appear as glowing lazers emitting from the grey blocks between them, which could appear more as lazer generators.  
+Though this may prove to be too time consuming and perhaps more distracting for the player.  I think the abstract nature of the 
+game may be a part of its current appeal.  How this is represented, ultimately I leave up to the artist, so long as it does not 
+affect the gameplay.
+
+5.  Exit block – touching this ends the level
+
+6.  1 player start button – clicking this starts a one player game from the title screen.
+Having a decent title screen is important in that it makes the project look and feel far more polished and complete.
+
+7.  Instructions button – navigate to instructions screen from the start menu
+
+8.  Tutorials on/off button – Toggle in game tutorial pop ups on or off. From the start menu and also from the pause menu.
+(these were actually present in my demo version of the game, though possibly not the version you all played.)
+
+9.  Back and Next arrow buttons – Navigate the simple, large print instructions pages.
+
+10.  Level complete banner – Is laid over the screen when the level is complete.
+11.  Level start banner – Could be the same  sprite as above with different text.
+Displays at the start of a level.
+12.  Restart banner – Basically the same grey rectangle as the above two banners.  This banner appears when the game is paused.  It is blank and simply hosts the following 3 buttons:
+Restart – restart current level
+Level Select – return to the level select screen
+Return to Game – unpauses the game.  Same as pressing the pause button again.
+
+13.  Greyblocks – These come in 3 types as detailed below:
+Square grey block – the 'glue' that bookends the color barriers
+Rectangle grey blocks – roughly the size of a color barrier.  Meant for use in places that the player is not meant to pass under any circumstances
+Barrier grey blocks – provide the outer, impassible walls of the environment.
+
+14.  Background – I was using a simple, circular, black to grey gradient.  Given the importance of colors in the gameplay, and the fact that I think the player has enough to figure out, I wanted to keep the background simple so as not to be distracting or annoying.
+
+15.  Up and Down Arrows – Grow and shrink the player, respectively.
+Shrink allows the player to gain access to narrow passages.
+Grow allows him to pass over chasms (essentially look like purple color blocks at the moment) that send the player back to the beginning of the level.
+
+16.  Level select page – One of the few assets in this list that I wasn't already implimenting in some way.  This page hosts a variety of simple, numbered icons that, when clicked, will take the player to that level indicated.  Icons are only clickable once a player has made it to the corresponding level in a sequential progression.  Again, a fair degree of artist freedom here, so long as it conforms to the overall look and feel of the game, and enhances a sense of cohesion in the project.
+
+17.  Key – When the player posesses this, they can open a lock by touching it.
+
+
+
+18.  Lock and corners – I actually have this as 5 different sprites.  One for the 4 walls, and one for each corner.  The corners unhinge, rotate, and hinge again, before the entire lock fades away.  Artist has liberties here, as long as your idea is at least as cool.  Perhaps the walls of the lock could be a translucent force-field?
+
+19.  Beloved title logo – flickers through a series of colors and is shaped in such a way that suggests it is made of crystal.
+
+20.  Highlighter – The same size as the buttons on the start menu.  Is translucent and flickers different colors, like the title logo.  It is set to go to whatever button the mouse is over, to make that button appear 'active' in a cool way.
+
+21.  Return to Start Menu Button – Returns the player to the start menu from the instructions screen.  This button resides in the lower center of the instructions screen while the next and back page arrows reside on either side.
+
+22.  Teleport Down and up portals – essentially act as stairs between 'floors' of the maze.  Teleport down is a larger dark-to-light circle gradient.  Teleport up is a smaller brownish gold circle gradient.  I don't really care what these look like.  Go nuts, make it cool and cohesive.
+
+23.  Warp To Start – If you haven't grown your roller by hitting an up arrow, this purple to black rectangle (chasm) will warp your player back to the start.
+
+24.  Music – Spectrum currently uses 3 songs from the Tron: Legacy score.  One exclusive to the start menu / instructions, and two that play during gameplay.
+
+25.  Sound Effects – I'll not go into detail, but for every mouse click, color swap, or level end, bumping into walls, touching the exit, there are sound effects for all of these things.  I can go into more detail on request. 
+
