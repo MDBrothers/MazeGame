@@ -15,8 +15,9 @@ import numpy as np
 
 maze_size = 100
 numpaths = 5
-pathlength_max = 10
+pathlength_max = 100
 
+iterations = 0
 paths = []
 
 for path in range(numpaths):
@@ -33,19 +34,29 @@ def find_available_neighbors(my_point_array, all_point_arrays):
         candidates = find_all_neighbors(my_point_array[-1])
         available = []
 
-        for cpoint in candidates:
-                inboth = False
+	mustremove = False
 
-                for point_array in all_point_arrays:
-                        for ppoint in point_array:
-                                if (ppoint[0] == cpoint[0] and ppoint[1] == cpoint[1]):
-                                        inboth = True
+	for cpoint in candidates:
+		mustremove = False
+		for point_array in all_point_arrays:
+			if cpoint in point_array:
+				mustremove = True
+				break
+					
+		if (cpoint[0] > maze_size):
+				mustremove = True
 
-                if cpoint[0] > 100 or cpoint[0] < 0 or cpoint[1] > 100 or cpoint[1] < 0:
-                        inboth == True
+		elif  (cpoint[0] < 0):
+				mustremove = True
 
-                if inboth == False:
-                        available.append(cpoint)
+		elif  (cpoint[1] > maze_size): 
+				mustremove = True
+
+		elif (cpoint[1] < 0):
+				mustremove = True
+
+		if mustremove == False:
+			available.append(cpoint)
 
         return available
 
@@ -55,18 +66,21 @@ def expand_path(my_point_array, available):
                 selection = np.random.randint(0, length)
                 my_point_array.append(available[selection])
 
-starting_point = [0,0]
+starting_point = [maze_size/2,maze_size/2]
 
 for pathnumber in range(numpaths):
-        paths[pathnumber][0] = starting_point
-
+	paths[pathnumber][0] = starting_point		
         for iteration in range(pathlength_max):
                 expand_path(paths[pathnumber], find_available_neighbors(paths[pathnumber], paths))
-                starting_point = paths[pathnumber][np.random.randint(0, len(paths[pathnumber]))]
+	
+        starting_point = (paths[pathnumber][np.random.randint(0, len(paths[pathnumber]))], paths)[0]
+	while not starting_point and iterations < 100:
+		iterations += 1
+        	starting_point = (paths[pathnumber][np.random.randint(0, len(paths[pathnumber]))], paths)[0]
 
         path_array = np.array(paths[pathnumber])
         #plt.scatter(path_array[:,0] , path_array[:,1])
-        plt.plot(path_array[:,0] , path_array[:,1], linewidth = 3)
+        plt.plot(path_array[:,0] , path_array[:,1], linewidth = 2*(pathnumber + 1))
 
 plt.show()
 
