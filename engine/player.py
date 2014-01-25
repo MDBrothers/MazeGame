@@ -4,7 +4,8 @@ import numpy as np
 class Player(object):
     def __init__(self, color, position, width, height, owner, whatILookLike):
         self.mystate = {'color': color,
-                        'position': position,
+                        'global_position': position,
+                        'local_position': position,
                         'owner' : owner,
                         'visible' : True,
                         'rotation' : 'none',
@@ -47,7 +48,7 @@ class Player(object):
 
 
     def move_to_coordinates(self, new_coordinates):
-        self.mystate['position'] = new_coordinates
+        self.mystate['local_position'] = new_coordinates
 
     def scale_small(self):
         if self.mystate['scale'] == 'normal':
@@ -98,7 +99,7 @@ class Player(object):
             ze_goggles = 'do nothing'
 
     def draw(self, myCanvas):
-        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.mystate['position'][0]*self.width, self.yoffset + self.mystate['position'][1]*self.height))
+        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.mystate['local_position'][0]*self.width, self.yoffset + self.mystate['local_position'][1]*self.height))
 
     def map_to_statefunction(self, requested_state):
         goggles = 'do nothing'

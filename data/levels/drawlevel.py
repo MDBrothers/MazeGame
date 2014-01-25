@@ -9,10 +9,10 @@ filename = sys.argv[-1]
 
 level_map = np.loadtxt(filename, dtype=int)
 
-level_render = pg.Surface((640, 640))
+level_render = pg.Surface((level_map.shape[1]*40, level_map.shape[0]*40))
 print len(level_map)
-barrier = pg.Rect(0,0, level_render.get_width()/len(level_map), level_render.get_width()/len(level_map[0]))
-background = pg.Rect(0,0, level_render.get_width()/len(level_map), level_render.get_width()/len(level_map[0]))
+barrier = pg.Rect(0,0, level_render.get_width()/level_map.shape[1], level_render.get_height()/level_map.shape[0])
+background = pg.Rect(0,0, level_render.get_width()/level_map.shape[1], level_render.get_height()/level_map.shape[0])
 print barrier.width
 
 row = 0;
