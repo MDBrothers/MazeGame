@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 maze_size = 100
-numpaths = 5
-pathlength_max = 100
+numpaths = 50
+pathlength_max = 5
 
 iterations = 0
 paths = []
