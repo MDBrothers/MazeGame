@@ -4,13 +4,13 @@ import numpy as np
 class Player(object):
     def __init__(self, color, position, width, height, owner, whatILookLike):
         self.mystate = {'color': color,
-                        'global_position': position,
-                        'local_position': position,
                         'owner' : owner,
                         'visible' : True,
                         'rotation' : 'none',
                         'has_key' : False,
                         'scale' : 'normal'}
+
+        self.local_position = position
 
         self.width = width
         self.height = height
@@ -99,7 +99,7 @@ class Player(object):
             ze_goggles = 'do nothing'
 
     def draw(self, myCanvas):
-        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.mystate['local_position'][0]*self.width, self.yoffset + self.mystate['local_position'][1]*self.height))
+        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.local_position[0]*self.width, self.yoffset + self.local_position[1]*self.height))
 
     def map_to_statefunction(self, requested_state):
         goggles = 'do nothing'
