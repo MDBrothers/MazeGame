@@ -2,10 +2,9 @@ import pygame as pg
 import numpy as np
 
 class Player(object):
-    def __init__(self, color, position, width, height, owner, whatILookLike, coordinate_multiplier):
+    def __init__(self, color, position, width, height, owner, whatILookLike):
         self.mystate = {'color': color,
                         'position': position,
-                        'multiplier' : coordinate_multiplier,
                         'owner' : owner,
                         'visible' : True,
                         'rotation' : 'none',
@@ -99,7 +98,7 @@ class Player(object):
             ze_goggles = 'do nothing'
 
     def draw(self, myCanvas):
-        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.mystate['multiplier']*self.mystate['position'][0]*self.width*self.mystate['multiplier'], self.yoffset + self.mystate['position'][1]*self.height*self.mystate['multiplier']))
+        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.mystate['position'][0]*self.width, self.yoffset + self.mystate['position'][1]*self.height))
 
     def map_to_statefunction(self, requested_state):
         goggles = 'do nothing'
