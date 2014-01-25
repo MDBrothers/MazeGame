@@ -26,10 +26,25 @@ class Player(object):
         self.mystate['scale'] = 'small'
         self.scale_normal()
         self.mystate['scale'] = 'normal'
-        self.scale_large()
-        self.mystate['scale'] = 'large'
         self.scale_small()
         self.mystate['scale'] = 'small'
+        self.scale_normal()
+        self.mystate['scale'] = 'normal'
+
+
+        self.scale_large()
+        self.mystate['scale'] = 'large'
+        self.scale_normal()
+        self.mystate['scale'] = 'normal'
+        self.scale_small()
+        self.mystate['scale'] = 'small'
+        self.scale_normal()
+        self.mystate['scale'] = 'normal'
+
+
+
+
+
 
 
     def move_to_coordinates(self, new_coordinates):
@@ -43,15 +58,13 @@ class Player(object):
             self.yscale_multiplier = .5
 
         elif self.mystate['scale'] == 'large':
-            self.xoffset += self.width/2
-            self.yoffset += self.width/2
+            self.xoffset += self.width*3/4
+            self.yoffset += self.width*3/4
             self.xscale_multiplier = .5
             self.yscale_multiplier = .5
 
         else:
             nothing = 'do'
-
-
 
     def scale_normal(self):
         if self.mystate['scale'] == 'small':
@@ -61,8 +74,8 @@ class Player(object):
             self.yscale_multiplier = 1.0
 
         elif self.mystate['scale'] == 'large':
-            self.xoffset += self.width/4
-            self.yoffset += self.width/4
+            self.xoffset += self.width/2
+            self.yoffset += self.width/2
             self.xscale_multiplier = 1.0
             self.yscale_multiplier = 1.0
 
@@ -77,18 +90,13 @@ class Player(object):
             self.yscale_multiplier = 2.0
 
         if self.mystate['scale'] == 'small':
-            self.xoffset -= self.width/2
-            self.yoffset -= self.width/2
+            self.xoffset -= self.width*3/4
+            self.yoffset -= self.width*3/4
             self.xscale_multiplier = 2.0
             self.yscale_multiplier = 2.0
 
         else:
             ze_goggles = 'do nothing'
-
-
-
-
-
 
     def draw(self, myCanvas):
         myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.mystate['multiplier']*self.mystate['position'][0]*self.width*self.mystate['multiplier'], self.yoffset + self.mystate['position'][1]*self.height*self.mystate['multiplier']))
