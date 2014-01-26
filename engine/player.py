@@ -61,8 +61,8 @@ class Player(object):
         self.myKeyframe = 0
         self.myAnimationLength = 0
 
-        #self.scale_small()
-        #self.mystate['scale'] = 'small'
+        self.scale_small()
+        self.mystate['scale'] = 'small'
 
     def move_to_coordinates(self, new_coordinates):
         self.mystate['local_position'] = new_coordinates

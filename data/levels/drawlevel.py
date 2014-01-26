@@ -162,6 +162,15 @@ color_to_triangle = {'410' : red_triangle,
                     '430' : blue_triangle,
                     '440' : yellow_triangle}
 
+tiles = pg.image.load("../assets/tile_sheet.png")
+color_change_tile_rect = (0, 0,40, 40
+color_change_tile = tiles.subsurface(color_change_tile_rect)
+
+corner_tile_rect = (40, 0,40, 40)
+corner_tile = tiles.subsurface(color_change_tile_rect)
+
+
+
 
 row = 0;
 column = 0;
@@ -173,16 +182,25 @@ def draw_crude(level_map, row, column):
     pg.draw.rect(p_three_level_render, colormap[map_three[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
     pg.draw.rect(p_four_level_render, colormap[map_four[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
     """
-    if str(level_map[row][column])[0] != '4':
-        pg.draw.rect(p_one_level_render, colormap[str(level_map[row][column])], block.move(block.width*mycolumn, block.height*myrow))
-        pg.draw.rect(p_two_level_render, colormap[map_two[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
-        pg.draw.rect(p_three_level_render, colormap[map_three[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
-        pg.draw.rect(p_four_level_render, colormap[map_four[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
-    else:
+    if str(level_map[row][column])[0] == '5':
+        p_one_level_render.blit(pg.transform.scale(color_change_tile, (40,40)), (column*40, row*40))
+        p_two_level_render.blit(pg.transform.scale(color_change_tile, (40,40)), (column*40, row*40))
+        p_three_level_render.blit(pg.transform.scale(color_change_tile, (40,40)), (column*40, row*40))
+        p_four_level_render.blit(pg.transform.scale(color_change_tile, (40,40)), (column*40, row*40))
+
+
+    elif str(level_map[row][column])[0] == '4':
         p_one_level_render.blit(pg.transform.scale(color_to_triangle[str(level_map[row][column])], (40,40)), (column*40, row*40))
         p_two_level_render.blit(pg.transform.scale(color_to_triangle[map_two[str(level_map[row][column])]], (40,40)), (column*40, row*40))
         p_three_level_render.blit(pg.transform.scale(color_to_triangle[map_three[str(level_map[row][column])]], (40,40)), (column*40, row*40))
         p_four_level_render.blit(pg.transform.scale(color_to_triangle[map_four[str(level_map[row][column])]], (40,40)), (column*40, row*40))
+
+    else: #str(level_map[row][column])[0] != '4':
+        pg.draw.rect(p_one_level_render, colormap[str(level_map[row][column])], block.move(block.width*mycolumn, block.height*myrow))
+        pg.draw.rect(p_two_level_render, colormap[map_two[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+        pg.draw.rect(p_three_level_render, colormap[map_three[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+        pg.draw.rect(p_four_level_render, colormap[map_four[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+
 
 
 
