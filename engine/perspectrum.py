@@ -55,20 +55,12 @@ class Control(object):
                                   '3' : self.p_three_level_map,
                                   '4' : self.p_four_level_map}
 
-        self.special_effect_map = {'500' : self.on_palette_change(),
-                                   '101' : self.off_palette_change(),
-                                   '200' : self.off_palette_change(),
-                                   '110' : self.off_palette_change(),
-                                   '120' : self.off_palette_change(),
-                                   '130' : self.off_palette_change(),
-                                   '140' : self.off_palette_change()}
-
 
         """The grid spacing depends on the screen resultion, and the number of tiles"""
         self.grid_spacing = self.screen.get_size()[0]/self.level_map.shape[1]*8
 
         self.playerSurface =  pg.transform.scale(pg.image.load("../data/assets/ball_sheet.png"), (4*self.grid_spacing, 2*self.grid_spacing))
-        self.furnatureSurface =  pg.transform.scale(pg.image.load("../data/furniture/furniture.png"), (4*self.grid_spacing, self.grid_spacing))
+        #self.furnitureSurface =  pg.transform.scale(pg.image.load("../data/assets/triangle_sheet.png"), (4*self.grid_spacing, self.grid_spacing))
 
         self.clock = pg.time.Clock()
         self.fps = 35.0
@@ -82,10 +74,22 @@ class Control(object):
         self.player_one_local_position = [0, 0]
 
         self.player_one = player.Player('140', self.player_one_local_position, self.grid_spacing, self.grid_spacing, 'player_one', self.playerSurface)
-        self.triangle_one = furniture.Furniture('2', '3', [3,3], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnatureSurface)
-        self.triangle_two = furniture.Furniture('1', '4', [2,2], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnatureSurface)
+        #self.triangle_one = furniture.Furniture('140', '140', [3,3], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnitureSurface)
+        #self.triangle_two = furniture.Furniture('140', '140', [2,2], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnitureSurface)
 
-        self.furniture = [self.triangle_one, self.triangle_two]
+        #self.furniture = [self.triangle_one, self.triangle_two]
+        self.special_effect_map = {'500' : self.on_palette_change(),
+                                   '410' : self.change_player_color('110'),
+                                   '420' : self.change_player_color('120'),
+                                   '430' : self.change_player_color('130'),
+                                   '440' : self.change_player_color('140'),
+                                   '101' : self.off_palette_change(),
+                                   '200' : self.off_palette_change(),
+                                   '110' : self.off_palette_change(),
+                                   '120' : self.off_palette_change(),
+                                   '130' : self.off_palette_change(),
+                                   '140' : self.off_palette_change()}
+
 
     def do_nothing(self):
         ze_goggles = 'they do nothing'
@@ -96,8 +100,8 @@ class Control(object):
     def off_palette_change(self):
         return False 
 
+    
     def map_tile_effect(self):
-
         #print str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])
 
         self.enable_palette_change = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
@@ -106,6 +110,12 @@ class Control(object):
 
     def movement_refused(self):
         print "OOOFF!"
+
+    def change_player_color(self, color):
+        print "Happens!"
+        self.player_one.mystate['color'] = color
+        return False
+
 
     def negotiate_left_movement(self):
         if self.player_one_global_position[0] < 1:
@@ -135,12 +145,12 @@ class Control(object):
             if self.player_one_local_position[0] == 2 and self.player_one_global_position[0] < (self.level_map.shape[1]/self.coordinate_multiplier-2):
                 self.background_position[0] -= self.grid_spacing
                 self.player_one_global_position[0] += 1
-                print "I am scrolling"
+                #print "I am scrolling"
             else:
                 self.player_one_global_position[0] += 1
                 self.player_one_local_position[0] += 1 
 
-            print self.player_one_local_position
+            #print self.player_one_local_position
             self.player_one.move_to_coordinates(self.player_one_local_position)
 
         else:
@@ -155,12 +165,12 @@ class Control(object):
                 #self.background.scroll(0, +int(self.grid_spacing))
                 self.background_position[1] += self.grid_spacing
                 self.player_one_global_position[1] -= 1
-                print "I am scrolling"
+                #print "I am scrolling"
             else:
                 self.player_one_global_position[1] -= 1
                 self.player_one_local_position[1] -= 1 
 
-            print self.player_one_local_position
+            #print self.player_one_local_position
             self.player_one.move_to_coordinates(self.player_one_local_position)
 
         else:
@@ -179,12 +189,12 @@ class Control(object):
                 self.background_position[1] -= self.grid_spacing
 
                 self.player_one_global_position[1] += 1
-                print "I am scrolling"
+                #print "I am scrolling"
             else:
                 self.player_one_global_position[1] += 1
                 self.player_one_local_position[1] += 1 
 
-            print self.player_one_local_position
+            #print self.player_one_local_position
             self.player_one.move_to_coordinates(self.player_one_local_position)
         else:
             return self.movement_refused()
@@ -243,7 +253,12 @@ class Control(object):
         self.screen.fill((0,0,0))
         self.background.set_colorkey((0,0,0))
         self.screen.blit(self.background, self.background_position)
+        
+        #self.triangle_one.draw(self.screen)
+        #self.triangle_two.draw(self.screen)
+
         self.player_one.draw(self.screen)
+        
         self.enforce_palette()
 
         caption = "{} - FPS: {:.2f}".format(CAPTION,self.clock.get_fps())

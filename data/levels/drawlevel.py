@@ -22,6 +22,10 @@ map_two = {' ' : ' ',
         '120' : '130',
         '130' : '140',
         '140' : '110',
+        '410' : '420',
+        '420' : '430',
+        '430' : '440',
+        '440' : '410',
         '500' : '500',
         '200' : '200'}
 
@@ -32,6 +36,10 @@ map_three = {' ' : ' ',
         '120' : '140',
         '130' : '110',
         '140' : '120',
+        '410' : '430',
+        '420' : '440',
+        '430' : '410',
+        '440' : '420',
         '500' : '500',
         '200': '200'}
 
@@ -42,6 +50,10 @@ map_four = {' ' : ' ',
         '120' : '110',
         '130' : '120',
         '140' : '130',
+        '410' : '440',
+        '420' : '410',
+        '430' : '420',
+        '440' : '430',
         '500' : '500',
         '200' : '200'}
 
@@ -51,7 +63,12 @@ colormap = {'101' : (0,0,0,255),
             '110' : (255,0,0,0),
             '120' : (0,255,0,0),
             '130' : (0,0,255,0),
-            '140' : (125,125,0,0)}
+            '140' : (125,125,0,0),
+            '410' : (255,0,0,0),
+            '420' : (0,255,0,0),
+            '430' : (0,0,255,0),
+            '440' : (125,125,0,0)}
+
 
 palette_one = open(filename_palette_one, 'w')
 palette_two = open(filename_palette_two, 'w')
@@ -127,6 +144,25 @@ color_to_barrier = {'110' : red_barrier,
                     '130' : blue_barrier,
                     '140' : yellow_barrier}
 
+triangles = pg.image.load("../assets/triangle_sheet.png")
+red_triangle_rect = pg.Rect(0,0, 36, 31)
+red_triangle = triangles.subsurface(red_triangle_rect) 
+
+green_triangle_rect = pg.Rect(36 ,0, 36, 31)
+green_triangle = triangles.subsurface(green_triangle_rect) 
+
+blue_triangle_rect = pg.Rect(108, 0, 36, 31)
+blue_triangle = triangles.subsurface(blue_triangle_rect) 
+
+yellow_triangle_rect = pg.Rect(72, 0, 36, 31)
+yellow_triangle = triangles.subsurface(yellow_triangle_rect) 
+
+color_to_triangle = {'410' : red_triangle,
+                    '420' : green_triangle,
+                    '430' : blue_triangle,
+                    '440' : yellow_triangle}
+
+
 row = 0;
 column = 0;
 
@@ -137,10 +173,18 @@ def draw_crude(level_map, row, column):
     pg.draw.rect(p_three_level_render, colormap[map_three[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
     pg.draw.rect(p_four_level_render, colormap[map_four[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
     """
-    pg.draw.rect(p_one_level_render, colormap[str(level_map[row][column])], block.move(block.width*mycolumn, block.height*myrow))
-    pg.draw.rect(p_two_level_render, colormap[map_two[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
-    pg.draw.rect(p_three_level_render, colormap[map_three[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
-    pg.draw.rect(p_four_level_render, colormap[map_four[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+    if str(level_map[row][column])[0] != '4':
+        pg.draw.rect(p_one_level_render, colormap[str(level_map[row][column])], block.move(block.width*mycolumn, block.height*myrow))
+        pg.draw.rect(p_two_level_render, colormap[map_two[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+        pg.draw.rect(p_three_level_render, colormap[map_three[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+        pg.draw.rect(p_four_level_render, colormap[map_four[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+    else:
+        p_one_level_render.blit(pg.transform.scale(color_to_triangle[str(level_map[row][column])], (40,40)), (column*40, row*40))
+        p_two_level_render.blit(pg.transform.scale(color_to_triangle[map_two[str(level_map[row][column])]], (40,40)), (column*40, row*40))
+        p_three_level_render.blit(pg.transform.scale(color_to_triangle[map_three[str(level_map[row][column])]], (40,40)), (column*40, row*40))
+        p_four_level_render.blit(pg.transform.scale(color_to_triangle[map_four[str(level_map[row][column])]], (40,40)), (column*40, row*40))
+
+
 
 def draw_fancy(level_map, row, column):
     """

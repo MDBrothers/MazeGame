@@ -2,9 +2,8 @@ import pygame as pg
 import numpy as np
 
 class Furniture(object):
-    def __init__(self, color_one, color_two, position, width, height, owner, whatILookLike):
-        self.mystate = {'color_one': color_one,
-                        'color_two': color_two,
+    def __init__(self, color, color_two, position, width, height, owner, whatILookLike):
+        self.mystate = {'color': color,
                         'owner' : owner,
                         'visible' : True,
                         'rotation' : 'none',
@@ -20,33 +19,43 @@ class Furniture(object):
         self.xscale_multiplier = 1.0
         self.yscale_multiplier = 1.0
         self.mySurface = whatILookLike        
+
+        self.keyframe = 0
+        self.animation_length = 1
+        self.framecycler = 0
+        
+        self.subsurface_one_frame_one_rect = pg.Rect(0, 0, self.height, self.height)
+        self.subsurface_one_frame_one = self.mySurface.subsurface(self.subsurface_one_frame_one_rect)
+
+        self.subsurface_two_frame_one_rect = pg.Rect(2*self.height-1, 0, self.height, self.height)
+        self.subsurface_two_frame_one = self.mySurface.subsurface(self.subsurface_two_frame_one_rect)
+
+        self.subsurface_three_frame_one_rect = pg.Rect(3*self.height-1, 0, self.height, self.height)
+        self.subsurface_three_frame_one = self.mySurface.subsurface(self.subsurface_three_frame_one_rect)
+
+        self.subsurface_four_frame_one_rect = pg.Rect(1*self.height-1, 0, self.height, self.height)
+        self.subsurface_four_frame_one = self.mySurface.subsurface(self.subsurface_four_frame_one_rect)
+
+        self.p_one_animation = [self.subsurface_one_frame_one,  True] 
+        self.p_two_animation = [self.subsurface_two_frame_one,  True] 
+        self.p_three_animation = [self.subsurface_three_frame_one,  True] 
+        self.p_four_animation = [self.subsurface_four_frame_one,  True] 
+
+
+        self.myAnimations = [self.p_one_animation, self.p_two_animation, self.p_three_animation, self.p_four_animation]
+
+        self.mySubsurfaces = [self.subsurface_one_frame_one, self.subsurface_two_frame_one, self.subsurface_three_frame_one, self.subsurface_four_frame_one]
+
+        self.color_mapped_subsurface = {'110' : '0',
+                                        '120' : '1',
+                                        '130' : '2',
+                                        '140' : '3'}
+        
         self.myKeyframe = 0
         self.myAnimationLength = 0
 
         self.scale_small()
         self.mystate['scale'] = 'small'
-        self.scale_normal()
-        self.mystate['scale'] = 'normal'
-        self.scale_small()
-        self.mystate['scale'] = 'small'
-        self.scale_normal()
-        self.mystate['scale'] = 'normal'
-
-        self.scale_large()
-        self.mystate['scale'] = 'large'
-        self.scale_normal()
-        self.mystate['scale'] = 'normal'
-        self.scale_small()
-        self.mystate['scale'] = 'small'
-        self.scale_normal()
-        self.mystate['scale'] = 'normal'
-
-    def rotate_colors(new_color):
-        old_one = self.color_one
-        self.color_one = self.color_two
-        self.color_two = new_color
-
-        return old_one
 
     def move_to_coordinates(self, new_coordinates):
         self.mystate['local_position'] = new_coordinates
@@ -100,7 +109,23 @@ class Furniture(object):
             ze_goggles = 'do nothing'
 
     def draw(self, myCanvas):
-        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.local_position[0]*self.width, self.yoffset + self.local_position[1]*self.height))
+        if self.keyframe < self.animation_length:
+            what_to_draw = pg.transform.scale(self.myAnimations[int(self.color_mapped_subsurface[self.mystate['color']])][self.keyframe],(int(self.width*self.xscale_multiplier),int(self.height*self.yscale_multiplier)))
+
+            myCanvas.blit(what_to_draw,(self.xoffset + self.local_position[0]*self.width,self.yoffset + self.local_position[1]*self.height))
+
+            if self.framecycler % 9 == 0:
+                self.keyframe += 1
+                self.framecycler = 0
+
+            self.framecycler += 1
+        elif True:
+            self.keyframe = 0
+            self.framecycler += 1
+            what_to_draw = pg.transform.scale(self.myAnimations[int(self.color_mapped_subsurface[self.mystate['color']])][self.keyframe],(int(self.width*self.xscale_multiplier),int(self.height*self.yscale_multiplier)))
+
+            myCanvas.blit(what_to_draw,(self.xoffset + self.local_position[0]*self.width,self.yoffset + self.local_position[1]*self.height))
+
 
     def map_to_statefunction(self, requested_state):
         goggles = 'do nothing'
