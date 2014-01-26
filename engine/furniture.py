@@ -1,9 +1,10 @@
 import pygame as pg
 import numpy as np
 
-class Player(object):
-    def __init__(self, color, position, width, height, owner, whatILookLike):
-        self.mystate = {'color': color,
+class Furniture(object):
+    def __init__(self, color_one, color_two, position, width, height, owner, whatILookLike):
+        self.mystate = {'color_one': color_one,
+                        'color_two': color_two,
                         'owner' : owner,
                         'visible' : True,
                         'rotation' : 'none',
@@ -19,14 +20,6 @@ class Player(object):
         self.xscale_multiplier = 1.0
         self.yscale_multiplier = 1.0
         self.mySurface = whatILookLike        
-        
-        self.mySubsurfaces = [
-
-        self.color_mapped_subsurface = {'1' : '1',
-                                        '2' : '2',
-                                        '3' : '3',
-                                        '4' : '4'}
-        
         self.myKeyframe = 0
         self.myAnimationLength = 0
 
@@ -39,7 +32,6 @@ class Player(object):
         self.scale_normal()
         self.mystate['scale'] = 'normal'
 
-
         self.scale_large()
         self.mystate['scale'] = 'large'
         self.scale_normal()
@@ -49,11 +41,12 @@ class Player(object):
         self.scale_normal()
         self.mystate['scale'] = 'normal'
 
+    def rotate_colors(new_color):
+        old_one = self.color_one
+        self.color_one = self.color_two
+        self.color_two = new_color
 
-
-
-
-
+        return old_one
 
     def move_to_coordinates(self, new_coordinates):
         self.mystate['local_position'] = new_coordinates
