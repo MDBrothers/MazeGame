@@ -208,7 +208,9 @@ class Control(object):
             return self.movement_refused()
 
     def increment_palette(self):
-        self.current_palette = self.palette_transition_map[self.current_palette]
+        if str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '5':
+            self.current_palette = self.palette_transition_map[self.current_palette]
+        self.enable_palette_change = False
 
     def event_loop(self):
         for event in pg.event.get():
