@@ -6,7 +6,13 @@ import pygame as pg
 import numpy as np
 import audio
 import player
-import furniture
+import ananab
+import intro
+
+pg.font.init()
+myFont = pg.font.SysFont('arial', 56, bold=True, italic=True)
+mySmallfont = pg.font.SysFont('arial', 26, bold=False, italic=False)
+
 
 CAPTION = "Perspectrum"
 
@@ -25,6 +31,8 @@ class Control(object):
         self.current_palette = '1'
         self.enable_palette_change = False
         self.enable_player_color_change = False
+        self.win = False
+
         self.palette_transition_map = {'1' : '2',
                                        '2' : '3',
                                        '3' : '4',
@@ -61,7 +69,8 @@ class Control(object):
         self.grid_spacing = self.screen.get_size()[1]/self.level_map.shape[0]*8
 
         self.playerSurface =  pg.transform.scale(pg.image.load("../data/assets/ball_sheet.png"), (4*self.grid_spacing, 2*self.grid_spacing))
-        #self.furnitureSurface =  pg.transform.scale(pg.image.load("../data/assets/triangle_sheet.png"), (4*self.grid_spacing, self.grid_spacing))
+        self.ananabSurface =  pg.transform.scale(pg.image.load("../data/assets/maximum_leader.png"), (4*self.grid_spacing, 10*self.grid_spacing))
+        self.introSurface =  pg.transform.scale(pg.image.load("../data/assets/title.png"), (7*self.grid_spacing, 2*self.grid_spacing))
 
         self.clock = pg.time.Clock()
         self.fps = 35.0
@@ -75,15 +84,17 @@ class Control(object):
         self.player_one_local_position = [0, 3]
 
         self.player_one = player.Player('140', self.player_one_local_position, self.grid_spacing, self.grid_spacing, 'player_one', self.playerSurface)
-        #self.triangle_one = furniture.Furniture('140', '140', [3,3], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnitureSurface)
-        #self.triangle_two = furniture.Furniture('140', '140', [2,2], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnitureSurface)
 
-        #self.furniture = [self.triangle_one, self.triangle_two]
+        self.ananab = ananab.Ananab([0,0], 2*self.grid_spacing, 5*self.grid_spacing, self.ananabSurface)
+        self.intro = intro.Intro([0,0], 7*self.grid_spacing, 2*self.grid_spacing, self.introSurface)
+
+
         self.special_effect_map = {'500' : self.on_palette_change(),
                                    '410' : self.on_change_player_color(),
                                    '420' : self.on_change_player_color(),
                                    '430' : self.on_change_player_color(),
                                    '440' : self.on_change_player_color(),
+                                   '333' : self.toggle_win(),
                                    '101' : self.off_palette_change(),
                                    '200' : self.off_palette_change(),
                                    '110' : self.off_palette_change(),
@@ -106,6 +117,8 @@ class Control(object):
     def off_palette_change(self):
         return False 
 
+    def toggle_win(self):
+        return True
     
     def map_tile_effect(self):
         #print str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0]
@@ -115,6 +128,11 @@ class Control(object):
 
         elif str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '4':
             self.enable_player_color_change = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
+
+        elif str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '3':
+            self.win = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
+
+
         #print self.enable_palette_change
 
     def movement_refused(self):
@@ -270,9 +288,6 @@ class Control(object):
         self.background.set_colorkey((0,0,0))
         self.screen.blit(self.background, self.background_position)
         
-        #self.triangle_one.draw(self.screen)
-        #self.triangle_two.draw(self.screen)
-
         self.player_one.draw(self.screen)
         self.map_tile_effect()
         self.enforce_palette()
@@ -281,19 +296,54 @@ class Control(object):
         caption = "{} - FPS: {:.2f}".format(CAPTION,self.clock.get_fps())
         pg.display.set_caption(caption)
 
+    def update_intro(self):
+        self.screen.fill((0,0,0))
+        self.background.set_colorkey((0,0,0))
+
+        self.intro.draw(self.screen)
+        self.screen.blit(myFont.render('PRESS ENTER TO COMMENCE', True, (0,255,0)), (0,self.screen.get_height()/2)) 
+
+        self.screen.blit(mySmallfont.render('Programmer: Michael Brothers', True, (0,255,0)), (0,self.screen.get_height()*10/16)) 
+        self.screen.blit(mySmallfont.render('Art: Adrian Rucker', True, (0,255,0)), (0,self.screen.get_height()*11/16)) 
+        self.screen.blit(mySmallfont.render('Music: Howard Timlin', True, (0,255,0)), (0,self.screen.get_height()*12/16)) 
+        self.screen.blit(mySmallfont.render('Level Design: Adrian and Howard', True, (0,255,0)), (0,self.screen.get_height()*13/16)) 
+
+        caption = "{} - CAN YOU HANDLE THE POWER? - FPS: {:.2f}".format(CAPTION,self.clock.get_fps())
+        pg.display.set_caption(caption)
+
+    def update_win(self):
+        self.screen.fill((0,0,0))
+        self.background.set_colorkey((0,0,0))
+        self.screen.blit(self.background, self.background_position)
+
+        self.ananab.draw(self.screen)
+        
+        caption = "{} - MAXIMUM LEADER IS PLEASED - FPS: {:.2f}".format(CAPTION,self.clock.get_fps())
+        pg.display.set_caption(caption)
+
     def main_loop(self):
         """Run around."""
         while not self.commence:
             self.event_loop()
-            self.update()
+            self.update_intro()
             pg.display.update()
             self.clock.tick(self.fps)
 
-        while not self.done:
+        while (not self.done and not self.win):
             self.event_loop()
             self.update()
             pg.display.flip()
             self.clock.tick(self.fps)
+
+        self.done = False
+
+        while not self.done:
+            self.event_loop()
+            self.update_win()
+            pg.display.flip()
+            self.clock.tick(self.fps)
+
+        
 
 if __name__ == "__main__":
     resolution = (1200,640)
@@ -306,5 +356,7 @@ if __name__ == "__main__":
         pg.mixer.music.play(-1)
     run_it = Control()
     run_it.main_loop()
+    pg.font.quit()
     pg.quit()
     sys.exit()
+

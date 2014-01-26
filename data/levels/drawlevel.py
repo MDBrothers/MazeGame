@@ -27,6 +27,7 @@ map_two = {' ' : ' ',
         '430' : '440',
         '440' : '410',
         '500' : '500',
+        '333' : '333',
         '200' : '200'}
 
 map_three = {' ' : ' ',
@@ -36,6 +37,7 @@ map_three = {' ' : ' ',
         '120' : '140',
         '130' : '110',
         '140' : '120',
+        '333' : '333',
         '410' : '430',
         '420' : '440',
         '430' : '410',
@@ -50,6 +52,7 @@ map_four = {' ' : ' ',
         '120' : '110',
         '130' : '120',
         '140' : '130',
+        '333' : '333',
         '410' : '440',
         '420' : '410',
         '430' : '420',
@@ -195,9 +198,9 @@ def draw_crude(level_map, row, column):
 
     elif str(level_map[row][column])[0] == '3':
         p_one_level_render.blit(pg.transform.scale(exit, (40,40)),  (column*40, row*40))
-        p_two_level_render.blit(exit,  (column*40, row*40))
-        p_three_level_render.blit(exit, (column*40, row*40))
-        p_four_level_render.blit(exit, (column*40, row*40))
+        p_two_level_render.blit(pg.transform.scale(exit, (40,40)),  (column*40, row*40))
+        p_three_level_render.blit(pg.transform.scale(exit, (40,40)), (column*40, row*40))
+        p_four_level_render.blit(pg.transform.scale(exit, (40,40)), (column*40, row*40))
 
 
     elif str(level_map[row][column])[0] == '2':
