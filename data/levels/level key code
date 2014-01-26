@@ -1,0 +1,41 @@
+#First digit declares type of tile:
+#
+#	'0' = blank tile, can be walked over
+#	'1' = colored barrier, requires correct color to pass through
+#	'2' = corner tiles, at intersection of lasers, impossible to pass through in any circumstance
+#	'3' = solid wall, impossible to pass through in any circumstance
+#	'4' = triangle tile, collectible, changes character's color and is replaced with a different triangle of the player's previous color
+#	'5' = color change tile, transitions the colored barriers betweent their various states
+#	'6' = size changing upgrade, makes the character bigger or smaller, with three levels of variation
+#	'7' = teleport/stair tile, moves character between different levels of map
+#	'8' = pit, sends the payer back to start if they are not at the biggest they can be
+#	'9' = win/exit button, completes the level successfully
+#
+#Second digit declares specialty of tile:
+#
+#	'0' = tile doesn't require color, has no effect on color, doesn't require size, and doesn't affect size, i.e. blank walkable tiles
+#	'1' = red, triangles of this color will turn the player this color and barriers of this color will not allow players through unless they are this color
+#	'2' = yellow, triangles of this color will turn the player this color and barriers of this color will not allow players through unless they are this color
+#	'3' = green, triangles of this color will turn the player this color and barriers of this color will not allow players through unless they are this color
+#	'4' = blue, triangles of this color will turn the player this color and barriers of this color will not allow players through unless they are this color
+#	'5' = small, these tiles require the player to be small to interact with them
+#	'6' = medium, these tiles require the player to be medium sized to interact with them
+#	'7' = large, these tiles require the player to be large to interact with them
+#	'8' = any color and specific size, these tiles do not require the player to be a specific color but do require a specific size
+#	'9' = any size and specific color, the reverse of the previous tiles
+#
+# NOTE: The '8' and '9' integer of the second digit may not be important but if a scenario like this does come up in level design, it's always handy to have the resources reserved
+#
+#Third digit declares properties of player:
+#
+#	'0' = sends player back to start, chasm tiles will have this
+#	'1' = increments the player's height/floor, stairs/teleports will have this
+#	'2' = decrements the player's height/floor, stairs/teleports will have this
+#	'3' = makes player red, triangles will have this
+#	'4' = makes player yellow, triangles will have this
+#	'5' = makes player green, triangles will have this
+#	'6' = makes player blue, triangles will have this
+#	'7' = makes player bigger, plus tiles will have this
+#	'8' = makes player smaller, minus tiles will have this
+#	'9' = makes player win the game and continues onto the next level, exit tiles will have this
+#	'10' = does not change property of player
