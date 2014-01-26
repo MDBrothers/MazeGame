@@ -28,7 +28,7 @@
 #
 #Third digit declares properties of player:
 #
-#	'0' = sends player back to start, chasm tiles will have this
+#	'0' = does not change property of player
 #	'1' = increments the player's height/floor, stairs/teleports will have this
 #	'2' = decrements the player's height/floor, stairs/teleports will have this
 #	'3' = makes player red, triangles will have this
@@ -38,4 +38,4 @@
 #	'7' = makes player bigger, plus tiles will have this
 #	'8' = makes player smaller, minus tiles will have this
 #	'9' = makes player win the game and continues onto the next level, exit tiles will have this
-#	'10' = does not change property of player
+#	'10' = sends player back to start, chasm tiles will have this
