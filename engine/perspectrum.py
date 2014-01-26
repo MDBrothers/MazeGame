@@ -38,7 +38,6 @@ class Control(object):
                                        '3' : '4',
                                        '4' : '1'}
 
-        self.background =  pg.image.load("../data/levels/level1.lev.png")
         self.background_one =  pg.image.load("../data/levels/level1_palette_one.png")
         self.background_two =  pg.image.load("../data/levels/level1_palette_two.png")
         self.background_three =  pg.image.load("../data/levels/level1_palette_three.png")
@@ -49,25 +48,57 @@ class Control(object):
                             '3' : self.background_three,
                             '4' : self.background_four}
 
+        self.background = self.background_one
         self.background_position = [0,0]
         self.screen_rect = self.screen.get_rect()
 
-        self.level_map = np.loadtxt("../data/levels/level1_palette_one.lev", dtype=int)
+        self.level_one_background_one =  pg.image.load("../data/levels/level1_palette_one.png")
+        self.level_one_background_two =  pg.image.load("../data/levels/level1_palette_two.png")
+        self.level_one_background_three =  pg.image.load("../data/levels/level1_palette_three.png")
+        self.level_one_background_four =  pg.image.load("../data/levels/level1_palette_four.png")
+        self.level_one_map = np.loadtxt("../data/levels/level1_palette_one.lev", dtype=int)
+        self.p_one_level_one_map = np.loadtxt("../data/levels/level1_palette_one.lev", dtype=int)
+        self.p_two_level_one_map = np.loadtxt("../data/levels/level1_palette_two.lev", dtype=int)
+        self.p_three_level_one_map = np.loadtxt("../data/levels/level1_palette_three.lev", dtype=int)
+        self.p_four_level_one_map = np.loadtxt("../data/levels/level1_palette_four.lev", dtype=int)
+        self.level_one_palette_map = {'1' : self.p_one_level_one_map,
+                                  '2' : self.p_two_level_one_map,
+                                  '3' : self.p_three_level_one_map,
+                                  '4' : self.p_four_level_one_map}
 
-        self.p_one_level_map = np.loadtxt("../data/levels/level1_palette_one.lev", dtype=int)
-        self.p_two_level_map = np.loadtxt("../data/levels/level1_palette_two.lev", dtype=int)
-        self.p_three_level_map = np.loadtxt("../data/levels/level1_palette_three.lev", dtype=int)
-        self.p_four_level_map = np.loadtxt("../data/levels/level1_palette_four.lev", dtype=int)
+        self.level_map = self.level_one_map
+        self.level_palette_map = self.level_one_palette_map
 
-        self.level_palette_map = {'1' : self.p_one_level_map,
-                                  '2' : self.p_two_level_map,
-                                  '3' : self.p_three_level_map,
-                                  '4' : self.p_four_level_map}
+        self.level_two_background_one =  pg.image.load("../data/levels/level2_palette_one.png")
+        self.level_two_background_two =  pg.image.load("../data/levels/level2_palette_two.png")
+        self.level_two_background_three =  pg.image.load("../data/levels/level2_palette_three.png")
+        self.level_two_background_four =  pg.image.load("../data/levels/level2_palette_four.png")
+        self.level_two_map = np.loadtxt("../data/levels/level2_palette_one.lev", dtype=int)
+        self.p_one_level_two_map = np.loadtxt("../data/levels/level2_palette_one.lev", dtype=int)
+        self.p_two_level_two_map = np.loadtxt("../data/levels/level2_palette_two.lev", dtype=int)
+        self.p_three_level_two_map = np.loadtxt("../data/levels/level2_palette_three.lev", dtype=int)
+        self.p_four_level_two_map = np.loadtxt("../data/levels/level2_palette_four.lev", dtype=int)
+        self.level_two_palette_map = {'1' : self.p_one_level_two_map,
+                                  '2' : self.p_two_level_two_map,
+                                  '3' : self.p_three_level_two_map,
+                                  '4' : self.p_four_level_two_map}
 
+        self.level_three_background_one =  pg.image.load("../data/levels/level3_palette_one.png")
+        self.level_three_background_two =  pg.image.load("../data/levels/level3_palette_two.png")
+        self.level_three_background_three =  pg.image.load("../data/levels/level3_palette_three.png")
+        self.level_three_background_four =  pg.image.load("../data/levels/level3_palette_four.png")
+        self.level_three_map = np.loadtxt("../data/levels/level3_palette_one.lev", dtype=int)
+        self.p_one_level_three_map = np.loadtxt("../data/levels/level3_palette_one.lev", dtype=int)
+        self.p_two_level_three_map = np.loadtxt("../data/levels/level3_palette_two.lev", dtype=int)
+        self.p_three_level_three_map = np.loadtxt("../data/levels/level3_palette_three.lev", dtype=int)
+        self.p_four_level_three_map = np.loadtxt("../data/levels/level3_palette_four.lev", dtype=int)
+        self.level_three_palette_map = {'1' : self.p_one_level_three_map,
+                                  '2' : self.p_two_level_three_map,
+                                  '3' : self.p_three_level_three_map,
+                                  '4' : self.p_four_level_three_map}
 
         """The grid spacing depends on the screen resultion, and the number of tiles"""
-        self.grid_spacing = self.screen.get_size()[1]/self.level_map.shape[0]*8
-
+        self.load_level_one()
         self.playerSurface =  pg.transform.scale(pg.image.load("../data/assets/ball_sheet.png"), (4*self.grid_spacing, 2*self.grid_spacing))
         self.ananabSurface =  pg.transform.scale(pg.image.load("../data/assets/maximum_leader.png"), (4*self.grid_spacing, 10*self.grid_spacing))
         self.introSurface =  pg.transform.scale(pg.image.load("../data/assets/title.png"), (7*self.grid_spacing, 2*self.grid_spacing))
@@ -107,6 +138,54 @@ class Control(object):
                                  '430' : '130',
                                  '440' : '140'}
 
+    def load_level_one(self):
+        self.grid_spacing = self.screen.get_size()[1]/self.level_one_map.shape[0]*8
+        self.background = self.level_one_background_one
+        self.background_one = self.level_one_background_one
+        self.background_two =  self.level_one_background_two
+        self.background_three =  self.level_one_background_three
+        self.background_four =  self.level_one_background_four
+        self.p_one_level_map = self.p_one_level_one_map
+        self.p_two_level_map = self.p_two_level_one_map
+        self.p_three_level_map = self.p_three_level_one_map
+        self.p_four_level_map = self.p_four_level_one_map
+        self.level_map = self.level_one_map
+        self.level_palette_map = self.level_one_palette_map
+
+    def load_level_two(self):
+        self.grid_spacing = self.screen.get_size()[1]/self.level_two_map.shape[0]*8
+        self.background = self.level_two_background_one
+        self.background_one = self.level_two_background_one
+        self.background_two =  self.level_two_background_two
+        self.background_three =  self.level_two_background_three
+        self.background_four =  self.level_two_background_four
+        self.p_one_level_map = self.p_one_level_two_map
+        self.p_two_level_map = self.p_two_level_two_map
+        self.p_three_level_map = self.p_three_level_two_map
+        self.p_four_level_map = self.p_four_level_two_map
+        self.level_map = self.level_two_map
+        self.level_palette_map = self.level_two_palette_map
+        self.player_one_global_position = [0, 3]
+        self.player_one_local_position = [0, 3]
+        self.player_one.local_position = self.player_one_local_position
+
+
+
+    def load_level_three(self):
+        self.background_one = self.level_three_background_one
+        self.background = self.level_three_background_one
+        self.background_two =  self.level_three_background_two
+        self.background_three =  self.level_three_background_three
+        self.background_four =  self.level_three_background_four
+        self.p_one_level_map = self.p_one_level_three_map
+        self.p_two_level_map = self.p_two_level_three_map
+        self.p_three_level_map = self.p_three_level_three_map
+        self.p_four_level_map = self.p_four_level_three_map
+        self.level_map = self.level_three_map
+        self.level_palette_map = self.level_three_palette_map
+        self.player_one_global_position = [0, 3]
+        self.player_one_local_position = [0, 3]
+        self.player_one.local_position = self.player_one_local_position
 
     def do_nothing(self):
         ze_goggles = 'they do nothing'
@@ -285,7 +364,6 @@ class Control(object):
 
     def update(self):
         self.screen.fill((0,0,0))
-        self.background.set_colorkey((0,0,0))
         self.screen.blit(self.background, self.background_position)
         
         self.player_one.draw(self.screen)
@@ -298,7 +376,6 @@ class Control(object):
 
     def update_intro(self):
         self.screen.fill((0,0,0))
-        self.background.set_colorkey((0,0,0))
 
         self.intro.draw(self.screen)
         self.screen.blit(myFont.render('PRESS ENTER TO COMMENCE', True, (0,255,0)), (0,self.screen.get_height()/2)) 
@@ -313,7 +390,6 @@ class Control(object):
 
     def update_win(self):
         self.screen.fill((0,0,0))
-        self.background.set_colorkey((0,0,0))
         self.screen.blit(self.background, self.background_position)
 
         self.ananab.draw(self.screen)
@@ -329,15 +405,34 @@ class Control(object):
             pg.display.update()
             self.clock.tick(self.fps)
 
+        self.load_level_one()
         while (not self.done and not self.win):
             self.event_loop()
             self.update()
             pg.display.flip()
             self.clock.tick(self.fps)
 
-        self.done = False
+        self.win = False
 
-        while not self.done:
+        self.load_level_two()
+        while (not self.done and not self.win):
+            self.event_loop()
+            self.update()
+            pg.display.flip()
+            self.clock.tick(self.fps)
+
+        self.win = False
+
+        self.load_level_three()
+        while (not self.done and not self.win):
+            self.event_loop()
+            self.update()
+            pg.display.flip()
+            self.clock.tick(self.fps)
+
+        self.commence = False
+
+        while not self.commence:
             self.event_loop()
             self.update_win()
             pg.display.flip()
