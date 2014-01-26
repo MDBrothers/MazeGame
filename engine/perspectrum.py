@@ -58,7 +58,7 @@ class Control(object):
 
 
         """The grid spacing depends on the screen resultion, and the number of tiles"""
-        self.grid_spacing = self.screen.get_size()[0]/self.level_map.shape[1]*8
+        self.grid_spacing = self.screen.get_size()[1]/self.level_map.shape[0]*8
 
         self.playerSurface =  pg.transform.scale(pg.image.load("../data/assets/ball_sheet.png"), (4*self.grid_spacing, 2*self.grid_spacing))
         #self.furnitureSurface =  pg.transform.scale(pg.image.load("../data/assets/triangle_sheet.png"), (4*self.grid_spacing, self.grid_spacing))
@@ -296,10 +296,11 @@ class Control(object):
             self.clock.tick(self.fps)
 
 if __name__ == "__main__":
-    resolution = (640,640)
+    resolution = (1200,640)
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pg.init()
     pg.display.set_mode(resolution)
+    pg.display.toggle_fullscreen()
     music_loaded = audio.load_music('../data/audio/pontiff.ogg')
     if music_loaded:
         pg.mixer.music.play(-1)

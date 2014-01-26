@@ -169,8 +169,7 @@ color_change_tile = tiles.subsurface(color_change_tile_rect)
 corner_tile_rect = (40, 0, 40, 40)
 corner_tile = tiles.subsurface(corner_tile_rect)
 
-
-
+exit = pg.image.load("../assets/exit_button.png")
 
 row = 0;
 column = 0;
@@ -194,12 +193,18 @@ def draw_crude(level_map, row, column):
         p_three_level_render.blit(pg.transform.scale(color_to_triangle[map_three[str(level_map[row][column])]], (40,40)), (column*40, row*40))
         p_four_level_render.blit(pg.transform.scale(color_to_triangle[map_four[str(level_map[row][column])]], (40,40)), (column*40, row*40))
 
+    elif str(level_map[row][column])[0] == '3':
+        p_one_level_render.blit(pg.transform.scale(exit, (40,40)),  (column*40, row*40))
+        p_two_level_render.blit(exit,  (column*40, row*40))
+        p_three_level_render.blit(exit, (column*40, row*40))
+        p_four_level_render.blit(exit, (column*40, row*40))
+
+
     elif str(level_map[row][column])[0] == '2':
         p_one_level_render.blit(corner_tile,  (column*40, row*40))
         p_two_level_render.blit(corner_tile,  (column*40, row*40))
         p_three_level_render.blit(corner_tile, (column*40, row*40))
         p_four_level_render.blit(corner_tile, (column*40, row*40))
-
 
 
     elif str(level_map[row][column])[0] != '1':
