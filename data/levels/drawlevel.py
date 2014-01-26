@@ -27,6 +27,7 @@ map_two = {' ' : ' ',
         '430' : '440',
         '440' : '410',
         '500' : '500',
+        '900' : '900',
         '333' : '333',
         '200' : '200'}
 
@@ -37,11 +38,12 @@ map_three = {' ' : ' ',
         '120' : '140',
         '130' : '110',
         '140' : '120',
-        '333' : '333',
+        '900' : '900',
         '410' : '430',
         '420' : '440',
         '430' : '410',
         '440' : '420',
+        '333' : '333',
         '500' : '500',
         '200': '200'}
 
@@ -52,15 +54,17 @@ map_four = {' ' : ' ',
         '120' : '110',
         '130' : '120',
         '140' : '130',
-        '333' : '333',
+        '900' : '900',
         '410' : '440',
         '420' : '410',
         '430' : '420',
         '440' : '430',
+        '333' : '333',
         '500' : '500',
         '200' : '200'}
 
 colormap = {'101' : (0,0,0,255),
+             '333' : (0,0,0,255),
             '200' : (33,33,33, 0),
             '500' : (255,255,255,0),
             '110' : (255,0,0,0),
@@ -196,7 +200,7 @@ def draw_crude(level_map, row, column):
         p_three_level_render.blit(pg.transform.scale(color_to_triangle[map_three[str(level_map[row][column])]], (40,40)), (column*40, row*40))
         p_four_level_render.blit(pg.transform.scale(color_to_triangle[map_four[str(level_map[row][column])]], (40,40)), (column*40, row*40))
 
-    elif str(level_map[row][column])[0] == '3':
+    elif str(level_map[row][column])[0] == '9':
         p_one_level_render.blit(pg.transform.scale(exit, (40,40)),  (column*40, row*40))
         p_two_level_render.blit(pg.transform.scale(exit, (40,40)),  (column*40, row*40))
         p_three_level_render.blit(pg.transform.scale(exit, (40,40)), (column*40, row*40))

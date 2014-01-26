@@ -38,10 +38,10 @@ class Control(object):
                                        '3' : '4',
                                        '4' : '1'}
 
-        self.background_one =  pg.image.load("../data/levels/level1_palette_one.png")
-        self.background_two =  pg.image.load("../data/levels/level1_palette_two.png")
-        self.background_three =  pg.image.load("../data/levels/level1_palette_three.png")
-        self.background_four =  pg.image.load("../data/levels/level1_palette_four.png")
+        self.background_one =  pg.image.load("../data/levels/level_1/level1_palette_one.png")
+        self.background_two =  pg.image.load("../data/levels/level_1/level1_palette_two.png")
+        self.background_three =  pg.image.load("../data/levels/level_1/level1_palette_three.png")
+        self.background_four =  pg.image.load("../data/levels/level_1/level1_palette_four.png")
 
         self.surface_palette_map = {'1' : self.background_one,
                             '2' : self.background_two,
@@ -52,15 +52,15 @@ class Control(object):
         self.background_position = [0,0]
         self.screen_rect = self.screen.get_rect()
 
-        self.level_one_background_one =  pg.image.load("../data/levels/level1_palette_one.png")
-        self.level_one_background_two =  pg.image.load("../data/levels/level1_palette_two.png")
-        self.level_one_background_three =  pg.image.load("../data/levels/level1_palette_three.png")
-        self.level_one_background_four =  pg.image.load("../data/levels/level1_palette_four.png")
-        self.level_one_map = np.loadtxt("../data/levels/level1_palette_one.lev", dtype=int)
-        self.p_one_level_one_map = np.loadtxt("../data/levels/level1_palette_one.lev", dtype=int)
-        self.p_two_level_one_map = np.loadtxt("../data/levels/level1_palette_two.lev", dtype=int)
-        self.p_three_level_one_map = np.loadtxt("../data/levels/level1_palette_three.lev", dtype=int)
-        self.p_four_level_one_map = np.loadtxt("../data/levels/level1_palette_four.lev", dtype=int)
+        self.level_one_background_one =  pg.image.load("../data/levels/level_1/level1_palette_one.png")
+        self.level_one_background_two =  pg.image.load("../data/levels/level_1/level1_palette_two.png")
+        self.level_one_background_three =  pg.image.load("../data/levels/level_1/level1_palette_three.png")
+        self.level_one_background_four =  pg.image.load("../data/levels/level_1/level1_palette_four.png")
+        self.level_one_map = np.loadtxt("../data/levels/level_1/level1_palette_one.lev", dtype=int)
+        self.p_one_level_one_map = np.loadtxt("../data/levels/level_1/level1_palette_one.lev", dtype=int)
+        self.p_two_level_one_map = np.loadtxt("../data/levels/level_1/level1_palette_two.lev", dtype=int)
+        self.p_three_level_one_map = np.loadtxt("../data/levels/level_1/level1_palette_three.lev", dtype=int)
+        self.p_four_level_one_map = np.loadtxt("../data/levels/level_1/level1_palette_four.lev", dtype=int)
         self.level_one_palette_map = {'1' : self.p_one_level_one_map,
                                   '2' : self.p_two_level_one_map,
                                   '3' : self.p_three_level_one_map,
@@ -69,29 +69,29 @@ class Control(object):
         self.level_map = self.level_one_map
         self.level_palette_map = self.level_one_palette_map
 
-        self.level_two_background_one =  pg.image.load("../data/levels/level2_palette_one.png")
-        self.level_two_background_two =  pg.image.load("../data/levels/level2_palette_two.png")
-        self.level_two_background_three =  pg.image.load("../data/levels/level2_palette_three.png")
-        self.level_two_background_four =  pg.image.load("../data/levels/level2_palette_four.png")
-        self.level_two_map = np.loadtxt("../data/levels/level2_palette_one.lev", dtype=int)
-        self.p_one_level_two_map = np.loadtxt("../data/levels/level2_palette_one.lev", dtype=int)
-        self.p_two_level_two_map = np.loadtxt("../data/levels/level2_palette_two.lev", dtype=int)
-        self.p_three_level_two_map = np.loadtxt("../data/levels/level2_palette_three.lev", dtype=int)
-        self.p_four_level_two_map = np.loadtxt("../data/levels/level2_palette_four.lev", dtype=int)
+        self.level_two_background_one =  pg.image.load("../data/levels/level_2/level2_palette_one.png")
+        self.level_two_background_two =  pg.image.load("../data/levels/level_2/level2_palette_two.png")
+        self.level_two_background_three =  pg.image.load("../data/levels/level_2/level2_palette_three.png")
+        self.level_two_background_four =  pg.image.load("../data/levels/level_2/level2_palette_four.png")
+        self.level_two_map = np.loadtxt("../data/levels/level_2/level2_palette_one.lev", dtype=int)
+        self.p_one_level_two_map = np.loadtxt("../data/levels/level_2/level2_palette_one.lev", dtype=int)
+        self.p_two_level_two_map = np.loadtxt("../data/levels/level_2/level2_palette_two.lev", dtype=int)
+        self.p_three_level_two_map = np.loadtxt("../data/levels/level_2/level2_palette_three.lev", dtype=int)
+        self.p_four_level_two_map = np.loadtxt("../data/levels/level_2/level2_palette_four.lev", dtype=int)
         self.level_two_palette_map = {'1' : self.p_one_level_two_map,
                                   '2' : self.p_two_level_two_map,
                                   '3' : self.p_three_level_two_map,
                                   '4' : self.p_four_level_two_map}
 
-        self.level_three_background_one =  pg.image.load("../data/levels/level3_palette_one.png")
-        self.level_three_background_two =  pg.image.load("../data/levels/level3_palette_two.png")
-        self.level_three_background_three =  pg.image.load("../data/levels/level3_palette_three.png")
-        self.level_three_background_four =  pg.image.load("../data/levels/level3_palette_four.png")
-        self.level_three_map = np.loadtxt("../data/levels/level3_palette_one.lev", dtype=int)
-        self.p_one_level_three_map = np.loadtxt("../data/levels/level3_palette_one.lev", dtype=int)
-        self.p_two_level_three_map = np.loadtxt("../data/levels/level3_palette_two.lev", dtype=int)
-        self.p_three_level_three_map = np.loadtxt("../data/levels/level3_palette_three.lev", dtype=int)
-        self.p_four_level_three_map = np.loadtxt("../data/levels/level3_palette_four.lev", dtype=int)
+        self.level_three_background_one =  pg.image.load("../data/levels/level_3/level3_palette_one.png")
+        self.level_three_background_two =  pg.image.load("../data/levels/level_3/level3_palette_two.png")
+        self.level_three_background_three =  pg.image.load("../data/levels/level_3/level3_palette_three.png")
+        self.level_three_background_four =  pg.image.load("../data/levels/level_3/level3_palette_four.png")
+        self.level_three_map = np.loadtxt("../data/levels/level_3/level3_palette_one.lev", dtype=int)
+        self.p_one_level_three_map = np.loadtxt("../data/levels/level_3/level3_palette_one.lev", dtype=int)
+        self.p_two_level_three_map = np.loadtxt("../data/levels/level_3/level3_palette_two.lev", dtype=int)
+        self.p_three_level_three_map = np.loadtxt("../data/levels/level_3/level3_palette_three.lev", dtype=int)
+        self.p_four_level_three_map = np.loadtxt("../data/levels/level_3/level3_palette_four.lev", dtype=int)
         self.level_three_palette_map = {'1' : self.p_one_level_three_map,
                                   '2' : self.p_two_level_three_map,
                                   '3' : self.p_three_level_three_map,
@@ -114,7 +114,7 @@ class Control(object):
         self.player_one_global_position = [0, 3]
         self.player_one_local_position = [0, 3]
 
-        self.player_one = player.Player('140', self.player_one_local_position, self.grid_spacing, self.grid_spacing, 'player_one', self.playerSurface)
+        self.player_one = player.Player('130', self.player_one_local_position, self.grid_spacing, self.grid_spacing, 'player_one', self.playerSurface)
 
         self.ananab = ananab.Ananab([0,0], 2*self.grid_spacing, 5*self.grid_spacing, self.ananabSurface)
         self.intro = intro.Intro([0,0], 7*self.grid_spacing, 2*self.grid_spacing, self.introSurface)
@@ -125,7 +125,7 @@ class Control(object):
                                    '420' : self.on_change_player_color(),
                                    '430' : self.on_change_player_color(),
                                    '440' : self.on_change_player_color(),
-                                   '333' : self.toggle_win(),
+                                   '900' : self.toggle_win(),
                                    '101' : self.off_palette_change(),
                                    '200' : self.off_palette_change(),
                                    '110' : self.off_palette_change(),
@@ -138,8 +138,9 @@ class Control(object):
                                  '430' : '130',
                                  '440' : '140'}
 
+
     def load_level_one(self):
-        self.grid_spacing = self.screen.get_size()[1]/self.level_one_map.shape[0]*8
+        self.grid_spacing = self.screen.get_size()[1]/self.level_one_map.shape[0]*4
         self.background = self.level_one_background_one
         self.background_one = self.level_one_background_one
         self.background_two =  self.level_one_background_two
@@ -153,7 +154,7 @@ class Control(object):
         self.level_palette_map = self.level_one_palette_map
 
     def load_level_two(self):
-        self.grid_spacing = self.screen.get_size()[1]/self.level_two_map.shape[0]*8
+        self.grid_spacing = self.screen.get_size()[1]/self.level_two_map.shape[0]*4
         self.background = self.level_two_background_one
         self.background_one = self.level_two_background_one
         self.background_two =  self.level_two_background_two
@@ -165,15 +166,14 @@ class Control(object):
         self.p_four_level_map = self.p_four_level_two_map
         self.level_map = self.level_two_map
         self.level_palette_map = self.level_two_palette_map
-        self.player_one_global_position = [0, 3]
-        self.player_one_local_position = [0, 3]
-        self.player_one.local_position = self.player_one_local_position
+        self.player_one.mystate['color'] = '130'
 
 
 
     def load_level_three(self):
-        self.background_one = self.level_three_background_one
+        self.grid_spacing = self.screen.get_size()[1]/self.level_two_map.shape[0]*4
         self.background = self.level_three_background_one
+        self.background_one = self.level_three_background_one
         self.background_two =  self.level_three_background_two
         self.background_three =  self.level_three_background_three
         self.background_four =  self.level_three_background_four
@@ -183,9 +183,7 @@ class Control(object):
         self.p_four_level_map = self.p_four_level_three_map
         self.level_map = self.level_three_map
         self.level_palette_map = self.level_three_palette_map
-        self.player_one_global_position = [0, 3]
-        self.player_one_local_position = [0, 3]
-        self.player_one.local_position = self.player_one_local_position
+        self.player_one.mystate['color'] = '130'
 
     def do_nothing(self):
         ze_goggles = 'they do nothing'
@@ -195,6 +193,16 @@ class Control(object):
 
     def off_palette_change(self):
         return False 
+
+    def move_player_to_start(self):
+        for row in range(self.level_map.shape[0]):
+            for col in range(self.level_map.shape[1]):
+                if str(self.level_map[row][col]) == '333':
+                    self.player_one_global_position = [col/4, row/4]
+                    self.player_one_local_position = [col/4, row/4]
+                    self.player_one.local_position = self.player_one_local_position
+
+
 
     def toggle_win(self):
         return True
@@ -208,7 +216,7 @@ class Control(object):
         elif str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '4':
             self.enable_player_color_change = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
 
-        elif str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '3':
+        elif str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '9':
             self.win = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
 
 
@@ -225,7 +233,7 @@ class Control(object):
     def negotiate_left_movement(self):
         if self.player_one_global_position[0] < 1:
             return self.movement_refused()
-        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier])]:
+        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier])] or str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier]) == '101':
 
             if self.player_one_local_position[0] == 1 and self.player_one_global_position[0] > 1:
                 #self.background.scroll(0, +int(self.grid_spacing))
@@ -238,14 +246,14 @@ class Control(object):
 
             #print self.player_one_local_position
             self.player_one.move_to_coordinates(self.player_one_local_position)
-
+            
         else:
             return self.movement_refused()
      
     def negotiate_right_movement(self):
         if self.player_one_global_position[0] > (self.level_map.shape[1]/self.coordinate_multiplier - 2):
             return self.movement_refused()
-        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier])]:
+        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier])] or str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier +self.coordinate_multiplier]) == '101':
 
             if self.player_one_local_position[0] == 2 and self.player_one_global_position[0] < (self.level_map.shape[1]/self.coordinate_multiplier-2):
                 self.background_position[0] -= self.grid_spacing
@@ -264,7 +272,7 @@ class Control(object):
     def negotiate_up_movement(self):
         if self.player_one_local_position[1] < 1:
             return self.movement_refused()
-        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]:
+        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])] or str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2]) == '101':
            
             if self.player_one_local_position[1] == 1 and self.player_one_global_position[1] > 1:
                 #self.background.scroll(0, +int(self.grid_spacing))
@@ -285,7 +293,7 @@ class Control(object):
         if self.player_one_global_position[1] > (self.level_map.shape[0]/self.coordinate_multiplier - 2):
             return self.movement_refused()
 
-        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]:
+        elif COLORMAP[self.player_one.mystate['color']] == COLORMAP[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]or str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2]) == '101':
             self.player_one_global_position = self.player_one_global_position
             self.player_one_local_position = self.player_one_local_position
 
@@ -406,15 +414,18 @@ class Control(object):
             self.clock.tick(self.fps)
 
         self.load_level_one()
+        self.move_player_to_start()
         while (not self.done and not self.win):
             self.event_loop()
             self.update()
             pg.display.flip()
             self.clock.tick(self.fps)
 
-        self.win = False
+        self.commence = False
+        """
 
         self.load_level_two()
+        self.move_player_to_start()
         while (not self.done and not self.win):
             self.event_loop()
             self.update()
@@ -424,6 +435,7 @@ class Control(object):
         self.win = False
 
         self.load_level_three()
+        self.move_player_to_start()
         while (not self.done and not self.win):
             self.event_loop()
             self.update()
@@ -431,7 +443,7 @@ class Control(object):
             self.clock.tick(self.fps)
 
         self.commence = False
-
+        """
         while not self.commence:
             self.event_loop()
             self.update_win()
