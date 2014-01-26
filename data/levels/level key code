@@ -37,5 +37,4 @@
 #	'6' = makes player blue, triangles will have this
 #	'7' = makes player bigger, plus tiles will have this
 #	'8' = makes player smaller, minus tiles will have this
-#	'9' = makes player win the game and continues onto the next level, exit tiles will have this
-#	'10' = sends player back to start, chasm tiles will have this
+#	'9' = sends player back to start, chasm tiles will have this
