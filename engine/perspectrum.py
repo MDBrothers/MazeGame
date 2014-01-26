@@ -10,15 +10,12 @@ import furniture
 
 CAPTION = "Perspectrum"
 
-COLORMAP = {'0' : (0,0,0,255),
-            '1' : (255,0,0,0),
-            '2' : (0,255,0,0),
-            '3' : (0,0,255,0),
-            '4' : (125,125,0,0),
-            '11' : (255,255,255,0),
-            '22' : (255,255,255,0),
-            '33' : (255,255,255,0),
-            '44' : (255,255,255,0)}
+COLORMAP = {'101' : (0,0,0,255),
+            '200' : (33,33,33, 0),
+            '110' : (255,0,0,0),
+            '120' : (0,255,0,0),
+            '130' : (0,0,255,0),
+            '140' : (125,125,0,0)}
 
 class Control(object): 
     def __init__(self):
@@ -58,11 +55,14 @@ class Control(object):
                                   '3' : self.p_three_level_map,
                                   '4' : self.p_four_level_map}
 
-        self.special_effect_map = { '11' : self.on_palette_change(),
-                                    '22' : self.on_palette_change(),
-                                    '33' : self.on_palette_change(),
-                                    '44' : self.on_palette_change(),
-                                    '0' : self.off_palette_change()}
+        self.special_effect_map = {'500' : self.on_palette_change(),
+                                   '101' : self.off_palette_change(),
+                                   '200' : self.off_palette_change(),
+                                   '110' : self.off_palette_change(),
+                                   '120' : self.off_palette_change(),
+                                   '130' : self.off_palette_change(),
+                                   '140' : self.off_palette_change()}
+
 
         """The grid spacing depends on the screen resultion, and the number of tiles"""
         self.grid_spacing = self.screen.get_size()[0]/self.level_map.shape[1]*8
@@ -70,7 +70,8 @@ class Control(object):
         print self.level_map.shape
         print self.grid_spacing
 
-        self.playerSurface =  pg.transform.scale(pg.image.load("../data/player/player.png"), (self.grid_spacing, self.grid_spacing))
+        self.playerSurface =  pg.transform.scale(pg.image.load("../data/player/player.png"), (4*self.grid_spacing, self.grid_spacing))
+        self.furnatureSurface =  pg.transform.scale(pg.image.load("../data/furniture/furniture.png"), (4*self.grid_spacing, self.grid_spacing))
 
         self.clock = pg.time.Clock()
         self.fps = 35.0
@@ -83,9 +84,9 @@ class Control(object):
         self.player_one_global_position = [0, 0]
         self.player_one_local_position = [0, 0]
 
-        self.player_one = player.Player('4', self.player_one_local_position, self.grid_spacing, self.grid_spacing, 'player_one', self.playerSurface)
-        self.triangle_one('2', '3', [3,3], self.grid_spacing, self.grid_spacing, 'dark_forces', whatILookLike):
-        self.triangle_two('1', '4', [2,2], self.grid_spacing, self.grid_spacing, 'dark_forces', whatILookLike):
+        self.player_one = player.Player('140', self.player_one_local_position, self.grid_spacing, self.grid_spacing, 'player_one', self.playerSurface)
+        self.triangle_one = furniture.Furniture('2', '3', [3,3], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnatureSurface)
+        self.triangle_two = furniture.Furniture('1', '4', [2,2], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnatureSurface)
 
         self.furniture = [self.triangle_one, self.triangle_two]
 
@@ -222,6 +223,21 @@ class Control(object):
                 elif event.key == pg.K_q:
                     self.increment_palette()
 
+                elif event.key == pg.K_1:
+                    self.player_one.mystate['color'] = '110'
+
+                elif event.key == pg.K_2:
+                    self.player_one.mystate['color'] = '120'
+
+                elif event.key == pg.K_3:
+                    self.player_one.mystate['color'] = '130'
+
+                elif event.key == pg.K_4:
+                    self.player_one.mystate['color'] = '140'
+
+
+
+
     def enforce_palette(self):
         self.background = self.surface_palette_map[self.current_palette]
         self.level_map = self.level_palette_map[self.current_palette]
@@ -255,7 +271,7 @@ if __name__ == "__main__":
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pg.init()
     pg.display.set_mode(resolution)
-    music_loaded = audio.load_music('../data/audio/song.ogg')
+    music_loaded = audio.load_music('../data/audio/pontiff.ogg')
     if music_loaded:
         pg.mixer.music.play(-1)
     run_it = Control()

@@ -15,42 +15,43 @@ filename_palette_two = filename + "_palette_two.lev"
 filename_palette_three = filename + "_palette_three.lev"
 filename_palette_four = filename + "_palette_four.lev"
 
-map_two = {'1' : '2',
-        '2' : '3',
-        '3' : '4',
-        '4' : '1',
-        ' ' : ' ',
+map_two = {' ' : ' ',
         '\n' : '\n',
-        '0' : '0',
-        '11' : '11'}
+        '101' : '101',
+        '110' : '120',
+        '120' : '130',
+        '130' : '140',
+        '140' : '110',
+        '500' : '500',
+        '200' : '200'}
 
-map_three = {'1' : '3',
-        '2' : '4',
-        '3' : '1',
-        '4' : '2',
-        ' ' : ' ',
+map_three = {' ' : ' ',
         '\n' : '\n',
-        '0' : '0',
-        '11' : '11'}
+        '101' : '101',
+        '110' : '130',
+        '120' : '140',
+        '130' : '110',
+        '140' : '120',
+        '500' : '500',
+        '200': '200'}
 
-map_four = {'1' : '4',
-        '2' : '1',
-        '3' : '2',
-        '4' : '3',
-        ' ' : ' ',
+map_four = {' ' : ' ',
         '\n' : '\n',
-        '0' : '0',
-        '11' : '11'}
+        '101' : '101',
+        '110' : '140',
+        '120' : '110',
+        '130' : '120',
+        '140' : '130',
+        '500' : '500',
+        '200' : '200'}
 
-colormap = {'0' : (0,0,0,255),
-            '1' : (255,0,0,0),
-            '2' : (0,255,0,0),
-            '3' : (0,0,255,0),
-            '4' : (125,125,0,0),
-            '11' : (255,255,255,0),
-            '22' : (255,255,255,0),
-            '33' : (255,255,255,0),
-            '44' : (255,255,255,0)}
+colormap = {'101' : (0,0,0,255),
+            '200' : (33,33,33, 0),
+            '500' : (255,255,255,0),
+            '110' : (255,0,0,0),
+            '120' : (0,255,0,0),
+            '130' : (0,0,255,0),
+            '140' : (125,125,0,0)}
 
 palette_one = open(filename_palette_one, 'w')
 palette_two = open(filename_palette_two, 'w')
@@ -63,15 +64,26 @@ p_two_line_buffer_out = ""
 p_three_line_buffer_out = ""
 p_four_line_buffer_out = ""
 
-template_file = open(filename)
-paragraph_buffer_in = template_file.readlines()
+paragraph_buffer_in = np.loadtxt(filename, dtype=int)
+print paragraph_buffer_in
 
-for line in paragraph_buffer_in:
-    for character in line:
-        p_one_line_buffer_out += character
-        p_two_line_buffer_out += map_two[character]
-        p_three_line_buffer_out += map_three[character]
-        p_four_line_buffer_out += map_four[character]
+for row in paragraph_buffer_in:
+    for col in row:
+        print col
+        p_one_line_buffer_out += str(col) 
+        p_two_line_buffer_out += map_two[str(col)]
+        p_three_line_buffer_out += map_three[str(col)]
+        p_four_line_buffer_out += map_four[str(col)]
+        p_one_line_buffer_out += ' ' 
+        p_two_line_buffer_out += ' '
+        p_three_line_buffer_out += ' '
+        p_four_line_buffer_out += ' '
+
+
+    p_one_line_buffer_out += '\n' 
+    p_two_line_buffer_out += '\n'
+    p_three_line_buffer_out += '\n'
+    p_four_line_buffer_out += '\n'
 
     palette_one.write(p_one_line_buffer_out)
     palette_two.write(p_two_line_buffer_out)
@@ -97,27 +109,94 @@ p_four_level_render = pg.Surface((level_map.shape[1]*40, level_map.shape[0]*40))
 
 block = pg.Rect(0,0, p_one_level_render.get_width()/level_map.shape[1], p_two_level_render.get_height()/level_map.shape[0])
 
+barriers = pg.image.load("../assets/upbarrier_sheet.png")
+red_barrier_rect = pg.Rect(0,0, 8, 24)
+red_barrier = barriers.subsurface(red_barrier_rect) 
+
+green_barrier_rect = pg.Rect(8,0, 8, 24)
+green_barrier = barriers.subsurface(green_barrier_rect) 
+
+blue_barrier_rect = pg.Rect(16,0, 8, 24)
+blue_barrier = barriers.subsurface(blue_barrier_rect) 
+
+yellow_barrier_rect = pg.Rect(24,0, 8, 24)
+yellow_barrier = barriers.subsurface(yellow_barrier_rect) 
+
+color_to_barrier = {'110' : red_barrier,
+                    '120' : green_barrier,
+                    '130' : blue_barrier,
+                    '140' : yellow_barrier}
+
 row = 0;
 column = 0;
 
-def draw(mycharacter):
+def draw_crude(level_map, row, column):
+    """
     pg.draw.rect(p_one_level_render, colormap[mycharacter], block.move(block.width*mycolumn, block.height*myrow))
     pg.draw.rect(p_two_level_render, colormap[map_two[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
     pg.draw.rect(p_three_level_render, colormap[map_three[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
     pg.draw.rect(p_four_level_render, colormap[map_four[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
+    """
+    pg.draw.rect(p_one_level_render, colormap[str(level_map[row][column])], block.move(block.width*mycolumn, block.height*myrow))
+    pg.draw.rect(p_two_level_render, colormap[map_two[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+    pg.draw.rect(p_three_level_render, colormap[map_three[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
+    pg.draw.rect(p_four_level_render, colormap[map_four[str(level_map[row][column])]], block.move(block.width*mycolumn, block.height*myrow))
 
+def draw_fancy(level_map, row, column):
+    """
+    pg.draw.rect(p_one_level_render, colormap[mycharacter], block.move(block.width*mycolumn, block.height*myrow))
+    pg.draw.rect(p_two_level_render, colormap[map_two[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
+    pg.draw.rect(p_three_level_render, colormap[map_three[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
+    pg.draw.rect(p_four_level_render, colormap[map_four[mycharacter]], block.move(block.width*mycolumn, block.height*myrow))
+    """
+    direction = 'none'
+    if (row % 2 == 0) and (column % 2 == 0):
+        if str(level_map[row][column]) == '110' or str(level_map[row][column]) == '120' or str(level_map[row][column]) == '130' or str(level_map[row][column]) == '140': 
+            if row < 2:
+                if (column / 2) % 2 ==1:
+                    direction = 'horizontal'
+                else:
+                    direction = 'none'
+
+            elif str(level_map[row][column]) == str(level_map[row - 1][column]):
+                if (row / 2) % 2 ==1:
+                    direction = 'vertical'
+                else:
+                    direction = 'none'
+
+            elif str(level_map[row][column]) == str(level_map[row][column +1]):
+                if (column / 2) % 2 ==1:
+                    direction = 'horizontal'
+                else:
+                    direction = 'none'
+            else:
+                direction = 'none'
+
+            if direction == 'horizontal':
+                p_one_level_render.blit(pg.transform.scale(pg.transform.rotate(color_to_barrier[str(level_map[row][column])], 90), (120,40)), ((column-1)*40, row*40))
+                p_two_level_render.blit(pg.transform.scale(pg.transform.rotate(color_to_barrier[map_two[str(level_map[row][column])]], 90),(120,40)), ((column-1)*40, row*40))
+                p_three_level_render.blit(pg.transform.scale(pg.transform.rotate(color_to_barrier[map_three[str(level_map[row][column])]], 90), (120,40)), ((column-1)*40, row*40))
+                p_four_level_render.blit(pg.transform.scale(pg.transform.rotate(color_to_barrier[map_four[str(level_map[row][column])]], 90), (120,40)), ((column-1)*40, row*40))
+            elif direction == 'vertical': 
+                p_one_level_render.blit(pg.transform.scale(color_to_barrier[str(level_map[row][column])], (40,120)), (column*40, (row-1)*40))
+                p_two_level_render.blit(pg.transform.scale(color_to_barrier[map_two[str(level_map[row][column])]], (40,120)), (column*40, (row-1)*40))
+                p_three_level_render.blit(pg.transform.scale(color_to_barrier[map_three[str(level_map[row][column])]], (40,120)), (column*40, (row-1)*40))
+                p_four_level_render.blit(pg.transform.scale(color_to_barrier[map_four[str(level_map[row][column])]], (40,120)), (column*40, (row-1)*40))
 
 for row in range(len(level_map)):
     for column in range(len(level_map[0,:])):
         myrow = row
         mycolumn = column
 
-        draw(str(level_map[row][column]))
+        draw_crude(level_map, row, column)
 
-        column += 1
-            
-    column = 0
-    row += 1
+for row in range(len(level_map)):
+    for column in range(len(level_map[0,:])):
+        myrow = row
+        mycolumn = column
+
+        draw_fancy(level_map, row, column)
+
 
 pg.image.save(p_one_level_render, filename + "_palette_one.png")
 pg.image.save(p_two_level_render, filename + "_palette_two.png")

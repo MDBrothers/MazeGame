@@ -20,12 +20,24 @@ class Player(object):
         self.yscale_multiplier = 1.0
         self.mySurface = whatILookLike        
         
-        self.mySubsurfaces = [
+        self.subsurface_one_frame_one_rect = pg.Rect(0, 0, self.height, self.height)
+        self.subsurface_one_frame_one = self.mySurface.subsurface(self.subsurface_one_frame_one_rect)
 
-        self.color_mapped_subsurface = {'1' : '1',
-                                        '2' : '2',
-                                        '3' : '3',
-                                        '4' : '4'}
+        self.subsurface_two_frame_one_rect = pg.Rect(self.height-1, 0, self.height, self.height)
+        self.subsurface_two_frame_one = self.mySurface.subsurface(self.subsurface_two_frame_one_rect)
+
+        self.subsurface_three_frame_one_rect = pg.Rect(2*self.height-1, 0, self.height, self.height)
+        self.subsurface_three_frame_one = self.mySurface.subsurface(self.subsurface_three_frame_one_rect)
+
+        self.subsurface_four_frame_one_rect = pg.Rect(3*self.height-1, 0, self.height, self.height)
+        self.subsurface_four_frame_one = self.mySurface.subsurface(self.subsurface_four_frame_one_rect)
+
+        self.mySubsurfaces = [self.subsurface_one_frame_one, self.subsurface_two_frame_one, self.subsurface_three_frame_one, self.subsurface_four_frame_one]
+
+        self.color_mapped_subsurface = {'110' : '0',
+                                        '120' : '1',
+                                        '130' : '2',
+                                        '140' : '3'}
         
         self.myKeyframe = 0
         self.myAnimationLength = 0
@@ -48,12 +60,6 @@ class Player(object):
         self.mystate['scale'] = 'small'
         self.scale_normal()
         self.mystate['scale'] = 'normal'
-
-
-
-
-
-
 
     def move_to_coordinates(self, new_coordinates):
         self.mystate['local_position'] = new_coordinates
@@ -107,7 +113,7 @@ class Player(object):
             ze_goggles = 'do nothing'
 
     def draw(self, myCanvas):
-        myCanvas.blit(pg.transform.scale(self.mySurface, (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.local_position[0]*self.width, self.yoffset + self.local_position[1]*self.height))
+        myCanvas.blit(pg.transform.scale(self.mySubsurfaces[int(self.color_mapped_subsurface[self.mystate['color']])], (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.local_position[0]*self.width, self.yoffset + self.local_position[1]*self.height))
 
     def map_to_statefunction(self, requested_state):
         goggles = 'do nothing'
