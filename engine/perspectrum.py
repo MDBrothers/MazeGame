@@ -24,6 +24,7 @@ class Control(object):
 
         self.current_palette = '1'
         self.enable_palette_change = False
+        self.enable_player_color_change = False
         self.palette_transition_map = {'1' : '2',
                                        '2' : '3',
                                        '3' : '4',
@@ -70,8 +71,8 @@ class Control(object):
         self.toggle = False
         self.coordinate_multiplier = 4 #This is the number of big tiles per row or column
 
-        self.player_one_global_position = [0, 0]
-        self.player_one_local_position = [0, 0]
+        self.player_one_global_position = [0, 3]
+        self.player_one_local_position = [0, 3]
 
         self.player_one = player.Player('140', self.player_one_local_position, self.grid_spacing, self.grid_spacing, 'player_one', self.playerSurface)
         #self.triangle_one = furniture.Furniture('140', '140', [3,3], self.grid_spacing, self.grid_spacing, 'dark_forces', self.furnitureSurface)
@@ -79,16 +80,21 @@ class Control(object):
 
         #self.furniture = [self.triangle_one, self.triangle_two]
         self.special_effect_map = {'500' : self.on_palette_change(),
-                                   '410' : self.change_player_color('110'),
-                                   '420' : self.change_player_color('120'),
-                                   '430' : self.change_player_color('130'),
-                                   '440' : self.change_player_color('140'),
+                                   '410' : self.on_change_player_color(),
+                                   '420' : self.on_change_player_color(),
+                                   '430' : self.on_change_player_color(),
+                                   '440' : self.on_change_player_color(),
                                    '101' : self.off_palette_change(),
                                    '200' : self.off_palette_change(),
                                    '110' : self.off_palette_change(),
                                    '120' : self.off_palette_change(),
                                    '130' : self.off_palette_change(),
                                    '140' : self.off_palette_change()}
+
+        self.special_colormap = {'410' : '110',
+                                 '420' : '120',
+                                 '430' : '130',
+                                 '440' : '140'}
 
 
     def do_nothing(self):
@@ -102,19 +108,21 @@ class Control(object):
 
     
     def map_tile_effect(self):
-        #print str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])
+        #print str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0]
 
-        self.enable_palette_change = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
+        if str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '5':
+            self.enable_palette_change = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
 
+        elif str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '4':
+            self.enable_player_color_change = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
         #print self.enable_palette_change
 
     def movement_refused(self):
         print "OOOFF!"
 
-    def change_player_color(self, color):
-        print "Happens!"
-        self.player_one.mystate['color'] = color
-        return False
+    def on_change_player_color(self):
+        print 'color change enabled'
+        return True
 
 
     def negotiate_left_movement(self):
@@ -249,6 +257,12 @@ class Control(object):
         self.background = self.surface_palette_map[self.current_palette]
         self.level_map = self.level_palette_map[self.current_palette]
 
+    def enforce_player_color_change(self):
+        if str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])[0] == '4':
+            self.player_one.mystate['color'] = self.special_colormap[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
+        else:
+            self.enable_player_color_change = False
+
     def update(self):
         self.screen.fill((0,0,0))
         self.background.set_colorkey((0,0,0))
@@ -258,8 +272,9 @@ class Control(object):
         #self.triangle_two.draw(self.screen)
 
         self.player_one.draw(self.screen)
-        
+        self.map_tile_effect()
         self.enforce_palette()
+        self.enforce_player_color_change()
 
         caption = "{} - FPS: {:.2f}".format(CAPTION,self.clock.get_fps())
         pg.display.set_caption(caption)
