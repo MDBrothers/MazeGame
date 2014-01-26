@@ -66,11 +66,8 @@ class Control(object):
 
         """The grid spacing depends on the screen resultion, and the number of tiles"""
         self.grid_spacing = self.screen.get_size()[0]/self.level_map.shape[1]*8
-        print self.screen.get_size()
-        print self.level_map.shape
-        print self.grid_spacing
 
-        self.playerSurface =  pg.transform.scale(pg.image.load("../data/player/player.png"), (4*self.grid_spacing, self.grid_spacing))
+        self.playerSurface =  pg.transform.scale(pg.image.load("../data/assets/ball_sheet.png"), (4*self.grid_spacing, 2*self.grid_spacing))
         self.furnatureSurface =  pg.transform.scale(pg.image.load("../data/furniture/furniture.png"), (4*self.grid_spacing, self.grid_spacing))
 
         self.clock = pg.time.Clock()
@@ -101,11 +98,11 @@ class Control(object):
 
     def map_tile_effect(self):
 
-        print str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])
+        #print str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])
 
         self.enable_palette_change = self.special_effect_map[str(self.level_map[self.player_one_global_position[1]*self.coordinate_multiplier + self.coordinate_multiplier/2][self.player_one_global_position[0]*self.coordinate_multiplier + self.coordinate_multiplier/2])]
 
-        print self.enable_palette_change
+        #print self.enable_palette_change
 
     def movement_refused(self):
         print "OOOFF!"
@@ -119,12 +116,12 @@ class Control(object):
                 #self.background.scroll(0, +int(self.grid_spacing))
                 self.background_position[0] += self.grid_spacing
                 self.player_one_global_position[0] -= 1
-                print "I am scrolling"
+                #print "I am scrolling"
             else:
                 self.player_one_global_position[0] -= 1
                 self.player_one_local_position[0] -= 1 
 
-            print self.player_one_local_position
+            #print self.player_one_local_position
             self.player_one.move_to_coordinates(self.player_one_local_position)
 
         else:

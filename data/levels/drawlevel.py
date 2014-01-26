@@ -110,16 +110,16 @@ p_four_level_render = pg.Surface((level_map.shape[1]*40, level_map.shape[0]*40))
 block = pg.Rect(0,0, p_one_level_render.get_width()/level_map.shape[1], p_two_level_render.get_height()/level_map.shape[0])
 
 barriers = pg.image.load("../assets/upbarrier_sheet.png")
-red_barrier_rect = pg.Rect(0,0, 8, 24)
+red_barrier_rect = pg.Rect(8,0, 8, 24)
 red_barrier = barriers.subsurface(red_barrier_rect) 
 
-green_barrier_rect = pg.Rect(8,0, 8, 24)
+green_barrier_rect = pg.Rect(16,0, 8, 24)
 green_barrier = barriers.subsurface(green_barrier_rect) 
 
-blue_barrier_rect = pg.Rect(16,0, 8, 24)
+blue_barrier_rect = pg.Rect(24,0, 8, 24)
 blue_barrier = barriers.subsurface(blue_barrier_rect) 
 
-yellow_barrier_rect = pg.Rect(24,0, 8, 24)
+yellow_barrier_rect = pg.Rect(0,0, 8, 24)
 yellow_barrier = barriers.subsurface(yellow_barrier_rect) 
 
 color_to_barrier = {'110' : red_barrier,

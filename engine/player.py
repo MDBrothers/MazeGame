@@ -19,18 +19,37 @@ class Player(object):
         self.xscale_multiplier = 1.0
         self.yscale_multiplier = 1.0
         self.mySurface = whatILookLike        
+
+        self.keyframe = 0
+        self.animation_length = 2
+        self.framecycler = 0
         
         self.subsurface_one_frame_one_rect = pg.Rect(0, 0, self.height, self.height)
         self.subsurface_one_frame_one = self.mySurface.subsurface(self.subsurface_one_frame_one_rect)
+        self.subsurface_one_frame_two_rect = pg.Rect(0, self.height, self.height, self.height)
+        self.subsurface_one_frame_two = self.mySurface.subsurface(self.subsurface_one_frame_two_rect)
 
-        self.subsurface_two_frame_one_rect = pg.Rect(self.height-1, 0, self.height, self.height)
+        self.subsurface_two_frame_one_rect = pg.Rect(2*self.height-1, 0, self.height, self.height)
         self.subsurface_two_frame_one = self.mySurface.subsurface(self.subsurface_two_frame_one_rect)
+        self.subsurface_two_frame_two_rect = pg.Rect(2*self.height-1, self.height, self.height, self.height)
+        self.subsurface_two_frame_two = self.mySurface.subsurface(self.subsurface_two_frame_two_rect)
 
-        self.subsurface_three_frame_one_rect = pg.Rect(2*self.height-1, 0, self.height, self.height)
+        self.subsurface_three_frame_one_rect = pg.Rect(3*self.height-1, 0, self.height, self.height)
         self.subsurface_three_frame_one = self.mySurface.subsurface(self.subsurface_three_frame_one_rect)
+        self.subsurface_three_frame_two_rect = pg.Rect(3*self.height-1, self.height, self.height, self.height)
+        self.subsurface_three_frame_two = self.mySurface.subsurface(self.subsurface_three_frame_two_rect)
 
-        self.subsurface_four_frame_one_rect = pg.Rect(3*self.height-1, 0, self.height, self.height)
+        self.subsurface_four_frame_one_rect = pg.Rect(1*self.height-1, 0, self.height, self.height)
         self.subsurface_four_frame_one = self.mySurface.subsurface(self.subsurface_four_frame_one_rect)
+        self.subsurface_four_frame_two_rect = pg.Rect(1*self.height-1, self.height, self.height, self.height)
+        self.subsurface_four_frame_two = self.mySurface.subsurface(self.subsurface_four_frame_two_rect)
+
+        self.p_one_animation = [self.subsurface_one_frame_one, self.subsurface_one_frame_two, True] 
+        self.p_two_animation = [self.subsurface_two_frame_one, self.subsurface_two_frame_two, True] 
+        self.p_three_animation = [self.subsurface_three_frame_one, self.subsurface_three_frame_two, True] 
+        self.p_four_animation = [self.subsurface_four_frame_one, self.subsurface_four_frame_two, True] 
+
+        self.myAnimations = [self.p_one_animation, self.p_two_animation, self.p_three_animation, self.p_four_animation]
 
         self.mySubsurfaces = [self.subsurface_one_frame_one, self.subsurface_two_frame_one, self.subsurface_three_frame_one, self.subsurface_four_frame_one]
 
@@ -113,7 +132,23 @@ class Player(object):
             ze_goggles = 'do nothing'
 
     def draw(self, myCanvas):
-        myCanvas.blit(pg.transform.scale(self.mySubsurfaces[int(self.color_mapped_subsurface[self.mystate['color']])], (int(self.width*self.xscale_multiplier), int(self.height*self.yscale_multiplier))), (self.xoffset + self.local_position[0]*self.width, self.yoffset + self.local_position[1]*self.height))
+        if self.keyframe < self.animation_length:
+            what_to_draw = pg.transform.scale(self.myAnimations[int(self.color_mapped_subsurface[self.mystate['color']])][self.keyframe],(int(self.width*self.xscale_multiplier),int(self.height*self.yscale_multiplier)))
+
+            myCanvas.blit(what_to_draw,(self.xoffset + self.local_position[0]*self.width,self.yoffset + self.local_position[1]*self.height))
+
+            if self.framecycler % 9 == 0:
+                self.keyframe += 1
+                self.framecycler = 0
+
+            self.framecycler += 1
+        elif True:
+            self.keyframe = 0
+            self.framecycler += 1
+            what_to_draw = pg.transform.scale(self.myAnimations[int(self.color_mapped_subsurface[self.mystate['color']])][self.keyframe],(int(self.width*self.xscale_multiplier),int(self.height*self.yscale_multiplier)))
+
+            myCanvas.blit(what_to_draw,(self.xoffset + self.local_position[0]*self.width,self.yoffset + self.local_position[1]*self.height))
+
 
     def map_to_statefunction(self, requested_state):
         goggles = 'do nothing'
