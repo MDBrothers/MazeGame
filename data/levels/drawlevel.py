@@ -163,7 +163,7 @@ color_to_triangle = {'410' : red_triangle,
                     '440' : yellow_triangle}
 
 tiles = pg.image.load("../assets/tile_sheet.png")
-color_change_tile_rect = (0, 0,40, 40
+color_change_tile_rect = (0, 0,40, 40)
 color_change_tile = tiles.subsurface(color_change_tile_rect)
 
 corner_tile_rect = (40, 0,40, 40)
